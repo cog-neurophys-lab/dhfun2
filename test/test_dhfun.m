@@ -21,3 +21,9 @@ assert(isequal(size(timeSelection), [5, 1]))
 
 %% Test readcont
 data = dhfun.readcont(filename, 1);
+assert(isequal(data(1:5), int16([-348   -290   -201   -224   -289])));
+
+%% Test getcontsize
+[nSamples, nChannels] = dhfun.getcontsize(filename, 1);
+assert(nSamples == 1443184);
+assert(nChannels == 1);
