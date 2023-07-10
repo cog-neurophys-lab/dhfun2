@@ -2009,7 +2009,8 @@ switch iFunction
         error('Not implemented yet');
         
     case DH.GETCONTCHANDESC
-        error('Not implemented yet');
+        varargout = cell(1,6);
+        [varargout{:}] = dh.getcontchandesc(varargin{:});
         
     case DH.SETCONTCHANDESC
         error('Not implemented yet');
