@@ -1,8 +1,14 @@
-function contInfo = get_cont_info(filename, blockid)
+function contInfo = getcontinfo(fid, blockid)
 
 arguments
-    filename char
+    fid 
     blockid double {mustBeInteger}
+end
+
+if isinteger(fid)
+    filename = fopen(fid);
+elseif ischar(fid) || isstring(fid)
+    filename = fid;
 end
 
 info = h5info(filename);

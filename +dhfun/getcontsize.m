@@ -14,16 +14,21 @@
 function [nsamp, nchan] = getcontsize(filename, blkid)
 
 arguments
-    filename char
+    filename 
     blkid double {mustBeInteger}
 end
+
+if isinteger(filename)
+    filename = fopen(filename);
+end
+    
 
 contGroups = dhfun.enumcont(filename);
 if ~ismember(blkid, contGroups)
     error('No such CONT block')
 end
 
-contInfo = get_cont_info(filename, blkid);
+contInfo = dhfun.getcontinfo(filename, blkid);
 
 nchan = contInfo.Datasets(1).Dataspace.Size(1);
 nsamp = contInfo.Datasets(1).Dataspace.Size(2);

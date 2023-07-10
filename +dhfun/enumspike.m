@@ -1,4 +1,4 @@
-%  OUTPUT = dhfun(DH.ENUMSPIKE, FID);
+%  OUTPUT = DHFUN.ENUMSPIKE(FID);
 %
 %  Enumerate SPIKEx block identifers in a V3.x file
 %
@@ -18,11 +18,18 @@
 %
 %  -------------------------------------------------
 
-function iSpike = enumspike(filename)
+function iSpike = enumspike(fid)
 
 arguments
-    filename char
+    fid char
 end
+
+if isinteger(fid)
+    filename = fopen(fid);
+elseif ischar(fid)
+    filename = fid;
+end
+
 info = h5info(filename);
 spikeGroups = info.Groups( ...
     cellfun(@(x) string(x).startsWith("/SPIKE") , {info.Groups.Name}) ...

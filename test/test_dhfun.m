@@ -2,6 +2,10 @@ addpath('..')
 
 filename = 'test_data.dh5';
 
+%% Test open
+fid = dhfun.open(filename, 'r');
+
+
 %% Test enumspikes
 idSpike = dhfun.enumspike(filename);
 assert(idSpike == 0)
@@ -27,3 +31,11 @@ assert(isequal(data(1:5), int16([-348   -290   -201   -224   -289])));
 [nSamples, nChannels] = dhfun.getcontsize(filename, 1);
 assert(nSamples == 1443184);
 assert(nChannels == 1);
+
+%% Test getcontindexsize
+items = dhfun.getcontindexsize(filename, 1);
+assert(items == 385)
+
+%% Test getcontsampleperiod
+period = dhfun.getcontsampleperiod(filename, 1);
+assert(period == 1000000)

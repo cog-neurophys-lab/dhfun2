@@ -47,8 +47,6 @@ arguments
     access char
 end
 
-H5.open();
-
 switch access
     case 'w'
         flags = "H5ACC_RDWR";
@@ -58,7 +56,7 @@ switch access
         flags = "H5F_ACC_RDWR";
 end
 
-fid = H5F.open(filename, flags);
+fid = H5F.open(filename, flags, 'H5P_DEFAULT');
 
 return;
 

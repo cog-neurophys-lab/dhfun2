@@ -16,10 +16,16 @@
 %  Identifiers returned by this function are safe for
 %  using in any CONT-block related functions
 
-function idCont = enumcont(filename)
+function idCont = enumcont(fid)
 
 arguments
-    filename char
+    fid char
+end
+
+if isinteger(fid)
+    filename = fopen(fid);
+elseif ischar(fid)
+    filename = fid;
 end
 
 info = h5info(filename);
