@@ -21,13 +21,13 @@ elseif ischar(fid)
     filename = fid;
 end
 
-contGroups = dhfun.enumcont(filename);
+contGroups = dh.enumcont(filename);
 if ~ismember(blkid, contGroups)
     error('No such CONT block')
 end
 
 
-items = dhfun.getcontinfo(filename, blkid).Datasets(2).Dataspace.Size;
+items = dh.getcontinfo(filename, blkid).Datasets(2).Dataspace.Size;
 
 end
 

@@ -24,11 +24,11 @@ elseif ischar(fid)
     filename = fid;
 end
 
-contGroups = dhfun.enumcont(filename);
+contGroups = dh.enumcont(filename);
 if ~ismember(blkid, contGroups)
     error('No such CONT block')
 end
 
-contAttributes = dhfun.getcontinfo(filename, blkid).Attributes;
+contAttributes = dh.getcontinfo(filename, blkid).Attributes;
 iSamplePeriodAttribute = cellfun(@(name) string(name) == "SamplePeriod", {contAttributes.Name});
 period = contAttributes(iSamplePeriodAttribute).Value;

@@ -23,12 +23,12 @@ if isinteger(filename)
 end
     
 
-contGroups = dhfun.enumcont(filename);
+contGroups = dh.enumcont(filename);
 if ~ismember(blkid, contGroups)
     error('No such CONT block')
 end
 
-contInfo = dhfun.getcontinfo(filename, blkid);
+contInfo = dh.getcontinfo(filename, blkid);
 
 nchan = contInfo.Datasets(1).Dataspace.Size(1);
 nsamp = contInfo.Datasets(1).Dataspace.Size(2);
