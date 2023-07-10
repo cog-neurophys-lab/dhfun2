@@ -15,11 +15,7 @@ arguments
     blkid double {mustBeInteger}
 end
 
-if isinteger(fid)
-    filename = fopen(fid);
-elseif ischar(fid)
-    filename = fid;
-end
+filename = get_filename(fid);
 
 contGroups = dh.enumcont(filename);
 if ~ismember(blkid, contGroups)

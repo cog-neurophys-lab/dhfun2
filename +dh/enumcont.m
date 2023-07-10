@@ -19,14 +19,10 @@
 function idCont = enumcont(fid)
 
 arguments
-    fid char
+    fid
 end
 
-if isinteger(fid)
-    filename = fopen(fid);
-elseif ischar(fid)
-    filename = fid;
-end
+filename = get_filename(fid);
 
 info = h5info(filename);
 spikeGroups = info.Groups( ...

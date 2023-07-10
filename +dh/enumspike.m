@@ -20,16 +20,7 @@
 
 function iSpike = enumspike(fid)
 
-arguments
-    fid char
-end
-
-if isinteger(fid)
-    filename = fopen(fid);
-elseif ischar(fid)
-    filename = fid;
-end
-
+filename = get_filename(fid);
 info = h5info(filename);
 spikeGroups = info.Groups( ...
     cellfun(@(x) string(x).startsWith("/SPIKE") , {info.Groups.Name}) ...

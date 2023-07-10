@@ -11,18 +11,15 @@
 %  NSAMP - variable to store number of samples
 %  NCHAN - variable to store number of channels
 
-function [nsamp, nchan] = getcontsize(filename, blkid)
+function [nsamp, nchan] = getcontsize(fid, blkid)
 
 arguments
-    filename 
+    fid 
     blkid double {mustBeInteger}
 end
 
-if isinteger(filename)
-    filename = fopen(filename);
-end
+filename = get_filename(fid);
     
-
 contGroups = dh.enumcont(filename);
 if ~ismember(blkid, contGroups)
     error('No such CONT block')

@@ -5,11 +5,7 @@ arguments
     blockid double {mustBeInteger}
 end
 
-if isinteger(fid)
-    filename = fopen(fid);
-elseif ischar(fid) || isstring(fid)
-    filename = fid;
-end
+filename = get_filename(fid);
 
 info = h5info(filename);
 iGroup = cellfun(@(name) string(name) == "/CONT" + blockid, {info.Groups.Name});
