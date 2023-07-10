@@ -1882,10 +1882,10 @@ switch iFunction
         
     case DH.LISTOPENFIDS
         error('Not implemented yet');
-        
-        %
-        %  --- General file service ------------------------
-        %
+    
+    %
+    %  --- General file service ------------------------
+    %
     case DH.OPEN
         error('Not implemented yet');
         
@@ -1901,9 +1901,9 @@ switch iFunction
     case DH.GETDAQVERSION
         error('Not implemented yet');
         
-        %
-        %  --- DAQ-HDF V1 continuous recordings ------------
-        %
+    %
+    %  --- DAQ-HDF V1 continuous recordings ------------
+    %
     case DH.CREATECR
         error('Not implemented yet');
         
@@ -1936,10 +1936,10 @@ switch iFunction
         
     case DH.SETCRCALINFO
         error('Not implemented yet');
-        
-        %
-        %  --- DAQ-HDF V1 event triggers -------------------
-        %
+    
+    %
+    %  --- DAQ-HDF V1 event triggers -------------------
+    %
     case DH.CREATEEV
         error('Not implemented yet');
         
@@ -1952,9 +1952,9 @@ switch iFunction
     case DH.GETEVSIZE
         error('Not implemented yet');
         
-        %
-        %  --- DAQ-HDF all versions TD01 records -----------
-        %
+    %
+    %  --- DAQ-HDF all versions TD01 records -----------
+    %
     case DH.CREATETD
         error('Not implemented yet');
         
@@ -1966,10 +1966,10 @@ switch iFunction
         
     case DH.GETTDSIZE
         error('Not implemented yet');
-        
-        %
-        %  --- DAQ-HDF V2 CONT nTrodes ---------------------
-        %
+    
+    %
+    %  --- DAQ-HDF V2 CONT nTrodes ---------------------
+    %
     case DH.CREATECONT
         error('Not implemented yet');
         
@@ -2015,9 +2015,9 @@ switch iFunction
     case DH.SETCONTCHANDESC
         error('Not implemented yet');
         
-        %
-        %  --- DAQ-HDF V2 SPIKE nTrodes --------------------
-        %
+    %
+    %  --- DAQ-HDF V2 SPIKE nTrodes --------------------
+    %
     case DH.CREATESPIKE
         error('Not implemented yet');
         
@@ -2062,9 +2062,10 @@ switch iFunction
         
     case DH.SETSPIKECHANDESC
         error('Not implemented yet');
-        
-        %
-        %  --- WAVELET interface ---------------------------
+
+    %
+    %  --- WAVELET interface ---------------------------
+    %
     case DH.CREATEWAVELET
         error('Not implemented yet');
         
@@ -2113,9 +2114,9 @@ switch iFunction
     case DH.SETWAVELETMORLETPARAMS
         error('Not implemented yet');
         
-        %
-        %  --- DAQ-HDF V2 EV02 triggers --------------------
-        %
+    %
+    %  --- DAQ-HDF V2 EV02 triggers --------------------
+    %
     case DH.CREATEEV2
         error('Not implemented yet');
         
@@ -2128,18 +2129,19 @@ switch iFunction
     case DH.GETEV2SIZE
         error('Not implemented yet');
         
-        %
-        %  ---------- TRIALMAP interface -------------------
-        %
+    %
+    %  ---------- TRIALMAP interface -------------------
+    %
     case DH.GETTRIALMAP
-        error('Not implemented yet');
+        varargout = cell(1,5);
+        [varargout{:}] = dh.gettrialmap(varargin{:});        
         
     case DH.SETTRIALMAP
         error('Not implemented yet');
         
-        %
-        %  ---------- MARKER interface ---------------------
-        %
+    %
+    %  ---------- MARKER interface ---------------------
+    %
     case DH.ENUMMARKERS
         error('Not implemented yet');
         
@@ -2149,9 +2151,9 @@ switch iFunction
     case DH.SETMARKER
         error('Not implemented yet');
         
-        %
-        %  ---------- INTERVAL interface -------------------
-        %
+    %
+    %  ---------- INTERVAL interface -------------------
+    %
     case DH.ENUMINTERVALS
         error('Not implemented yet');
         

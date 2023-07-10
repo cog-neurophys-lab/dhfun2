@@ -224,6 +224,8 @@ assert(idSpike == 0)
 %  ---------- TRIALMAP interface -------------------
 %
 %% Test DH.GETTRIALMAP
+[trialno,stimno,outcome,starttime,endtime] = dhfun(DH.GETTRIALMAP, filename);
+assert(isequal(trialno(1:5), int32(295:299)'))
 
 %% Test DH.SETTRIALMAP
 
