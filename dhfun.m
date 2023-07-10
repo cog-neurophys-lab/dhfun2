@@ -1874,32 +1874,294 @@ varargin = varargin(2:end);
 
 
 switch iFunction
-
-    % SPIKE -------------------------------------------------------------------
-    case DH.ENUMSPIKE
-        varargout = {dh.enumspike(varargin{:})};
-
-
-
-    % CONT --------------------------------------------------------------------
-    case DH.ENUMCONT        
-        varargout = dh.enumcont(varargin{:});
+    
+    %  ----- General information, debugging ------------
+    case DH.GETVERSION
+        varargout = {dh.getversion(varargin{:})};
         
-    case DH.READCONT        
-        varargout = dh.readcont(varargin{:});
+        
+    case DH.LISTOPENFIDS
+        error('Not implemented yet');
+        
+        %
+        %  --- General file service ------------------------
+        %
+    case DH.OPEN
+        error('Not implemented yet');
+        
+    case DH.CLOSE
+        error('Not implemented yet');
+        
+    case DH.GETFIDINFO
+        error('Not implemented yet');
+        
+    case DH.GETOPERATIONINFOS
+        error('Not implemented yet');
+        
+    case DH.GETDAQVERSION
+        error('Not implemented yet');
+        
+        %
+        %  --- DAQ-HDF V1 continuous recordings ------------
+        %
+    case DH.CREATECR
+        error('Not implemented yet');
+        
+    case DH.READCR
+        error('Not implemented yet');
+        
+    case DH.WRITECR
+        error('Not implemented yet');
+        
+    case DH.GETCRSIZE
+        error('Not implemented yet');
+        
+    case DH.GETCRADCBITWIDTH
+        error('Not implemented yet');
+        
+    case DH.GETCRSAMPLEPERIOD
+        error('Not implemented yet');
+        
+    case DH.GETCRSTARTTIME
+        error('Not implemented yet');
+        
+    case DH.GETCRMAXVOLTAGERANGE
+        error('Not implemented yet');
+        
+    case DH.GETCRMINVOLTAGERANGE
+        error('Not implemented yet');
+        
+    case DH.GETCRCALINFO
+        error('Not implemented yet');
+        
+    case DH.SETCRCALINFO
+        error('Not implemented yet');
+        
+        %
+        %  --- DAQ-HDF V1 event triggers -------------------
+        %
+    case DH.CREATEEV
+        error('Not implemented yet');
+        
+    case DH.READEV
+        error('Not implemented yet');
+        
+    case DH.WRITEEV
+        error('Not implemented yet');
+        
+    case DH.GETEVSIZE
+        error('Not implemented yet');
+        
+        %
+        %  --- DAQ-HDF all versions TD01 records -----------
+        %
+    case DH.CREATETD
+        error('Not implemented yet');
+        
+    case DH.READTD
+        error('Not implemented yet');
+        
+    case DH.WRITETD
+        error('Not implemented yet');
+        
+    case DH.GETTDSIZE
+        error('Not implemented yet');
+        
+        %
+        %  --- DAQ-HDF V2 CONT nTrodes ---------------------
+        %
+    case DH.CREATECONT
+        error('Not implemented yet');
+        
+    case DH.ENUMCONT
+        varargout = {dh.enumcont(varargin{:})};
+        
+    case DH.READCONT
+        varargout = {dh.readcont(varargin{:})};
+        
+    case DH.WRITECONT
+        error('Not implemented yet');
+        
+    case DH.READCONTINDEX
+        [time, offset] = dh.readcontindex(varargin{:});
+        varargout = {time, offset};
+        
+    case DH.WRITECONTINDEX
+        error('Not implemented yet');
+        
+    case DH.GETCONTSIZE
+         [nsamp, nchan] = dh.getcontsize(varargin{:});
+         varargout = {nsamp, nchan};
         
     case DH.GETCONTINDEXSIZE
-        varargout = dh.getcontindexsize(varargin{:});
-
+        varargout = {dh.getcontindexsize(varargin{:})};        
+        
     case DH.GETCONTSAMPLEPERIOD
-        varargout = dh.getcontsampleperiod(varargin{:});
-
+        varargout = {dh.getcontsampleperiod(varargin{:})};
+        
+    case DH.SETCONTSAMPLEPERIOD
+        error('Not implemented yet');
+        
     case DH.GETCONTCALINFO
-        varargout = dh.getcontcalinfo(varargin{:});
-
+        error('Not implemented yet');
+        
+    case DH.SETCONTCALINFO
+        error('Not implemented yet');
+        
     case DH.GETCONTCHANDESC
-        varargout  = dh.getcontchandesc(varargin{:});
+        error('Not implemented yet');
+        
+    case DH.SETCONTCHANDESC
+        error('Not implemented yet');
+        
+        %
+        %  --- DAQ-HDF V2 SPIKE nTrodes --------------------
+        %
+    case DH.CREATESPIKE
+        error('Not implemented yet');
+        
+    case DH.ENUMSPIKE
+        varargout = {dh.enumspike(varargin{:})};
+        
+    case DH.READSPIKE
+        error('Not implemented yet');
+        
+    case DH.WRITESPIKE
+        error('Not implemented yet');
+        
+    case DH.READSPIKEINDEX
+        error('Not implemented yet');
+        
+    case DH.WRITESPIKEINDEX
+        error('Not implemented yet');
+        
+    case DH.ISCLUSTERINFO_PRESENT
+        error('Not implemented yet');
+        
+    case DH.READSPIKECLUSTER
+        error('Not implemented yet');
+        
+    case DH.WRITESPIKECLUSTER
+        error('Not implemented yet');
+        
+    case DH.GETSPIKESIZE
+        error('Not implemented yet');
+        
+    case DH.GETNUMBERSPIKES
+        error('Not implemented yet');
+        
+    case DH.GETSPIKESAMPLEPERIOD
+        error('Not implemented yet');
+        
+    case DH.GETSPIKEPARAMS
+        error('Not implemented yet');
+        
+    case DH.GETSPIKECHANDESC
+        error('Not implemented yet');
+        
+    case DH.SETSPIKECHANDESC
+        error('Not implemented yet');
+        
+        %
+        %  --- WAVELET interface ---------------------------
+    case DH.CREATEWAVELET
+        error('Not implemented yet');
+        
+    case DH.ENUMWAVELET
+        error('Not implemented yet');
+        
+    case DH.READWAVELET
+        error('Not implemented yet');
+        
+    case DH.WRITEWAVELET
+        error('Not implemented yet');
+        
+    case DH.READWAVELETINDEX
+        error('Not implemented yet');
+        
+    case DH.WRITEWAVELETINDEX
+        error('Not implemented yet');
+        
+    case DH.GETWAVELETSIZE
+        error('Not implemented yet');
+        
+    case DH.GETWAVELETINDEXSIZE
+        error('Not implemented yet');
+        
+    case DH.GETWAVELETSAMPLEPERIOD
+        error('Not implemented yet');
+        
+    case DH.SETWAVELETSAMPLEPERIOD
+        error('Not implemented yet');
+        
+    case DH.GETWAVELETCHANDESC
+        error('Not implemented yet');
+        
+    case DH.SETWAVELETCHANDESC
+        error('Not implemented yet');
+        
+    case DH.GETWAVELETFAXIS
+        error('Not implemented yet');
+        
+    case DH.SETWAVELETFAXIS
+        error('Not implemented yet');
+        
+    case DH.GETWAVELETMORLETPARAMS
+        error('Not implemented yet');
+        
+    case DH.SETWAVELETMORLETPARAMS
+        error('Not implemented yet');
+        
+        %
+        %  --- DAQ-HDF V2 EV02 triggers --------------------
+        %
+    case DH.CREATEEV2
+        error('Not implemented yet');
+        
+    case DH.READEV2
+        error('Not implemented yet');
+        
+    case DH.WRITEEV2
+        error('Not implemented yet');
+        
+    case DH.GETEV2SIZE
+        error('Not implemented yet');
+        
+        %
+        %  ---------- TRIALMAP interface -------------------
+        %
+    case DH.GETTRIALMAP
+        error('Not implemented yet');
+        
+    case DH.SETTRIALMAP
+        error('Not implemented yet');
+        
+        %
+        %  ---------- MARKER interface ---------------------
+        %
+    case DH.ENUMMARKERS
+        error('Not implemented yet');
+        
+    case DH.GETMARKER
+        error('Not implemented yet');
+        
+    case DH.SETMARKER
+        error('Not implemented yet');
+        
+        %
+        %  ---------- INTERVAL interface -------------------
+        %
+    case DH.ENUMINTERVALS
+        error('Not implemented yet');
+        
+    case DH.GETINTERVAL
+        error('Not implemented yet');
+        
+    case DH.SETINTERVAL
+        error('Not implemented yet');
+        
         
 
-
+        
+        
 end
