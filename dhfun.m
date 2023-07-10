@@ -1869,11 +1869,11 @@ if isempty(DH)
     DH = dh.constants();
 end
 
-iFunction = varargin{1};
+FUNCTION = varargin{1};
 varargin = varargin(2:end);
 
 
-switch iFunction
+switch FUNCTION
     
     %  ----- General information, debugging ------------
     case DH.GETVERSION
@@ -1896,7 +1896,10 @@ switch iFunction
         error('Not implemented yet');
         
     case DH.GETOPERATIONINFOS
-        error('Not implemented yet');
+        varargout = cell(1,2);
+        [varargout{:}] = dh.getoperationinfos(varargin{:});
+        
+
         
     case DH.GETDAQVERSION
         error('Not implemented yet');

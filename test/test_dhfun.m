@@ -22,7 +22,9 @@ dhfun(DH.CLOSE, fid);
 
 
 %% Test DH.GETOPERATIONINFOS
-% dhfun(DH.GETOPERATIONINFOS, fid);
+[opname, opinfo] = dhfun(DH.GETOPERATIONINFOS, filename);
+assert(isequal(opname{1}, 'Recording'))
+assert(opinfo{1}.Date.Year == 2010)
 
 %% Test DH.GETDAQVERSION (-)
 
