@@ -1887,10 +1887,10 @@ switch iFunction
     %  --- General file service ------------------------
     %
     case DH.OPEN
-        error('Not implemented yet');
+        varargout = {dh.open(varargin{:})};
         
     case DH.CLOSE
-        error('Not implemented yet');
+        dh.close(varargin{:});
         
     case DH.GETFIDINFO
         error('Not implemented yet');

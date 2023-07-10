@@ -49,7 +49,7 @@ end
 
 switch access
     case 'w'
-        flags = "H5ACC_RDWR";
+        error('Not yet implemented')
     case 'r'
         flags = "H5F_ACC_RDONLY";
     case 'r+'
@@ -57,6 +57,4 @@ switch access
 end
 
 fid = H5F.open(filename, flags, 'H5P_DEFAULT');
-
-return;
 

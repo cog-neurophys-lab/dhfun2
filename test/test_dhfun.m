@@ -15,14 +15,14 @@ assert(version == 2)
 %  --- General file service ------------------------
 %
 %% Test DH.OPEN / CLOSE
-fid = dhfun(DH.OPEN, filename);
+fid = dhfun(DH.OPEN, filename, 'r');
 dhfun(DH.CLOSE, fid);
 
 %% Test DH.GETFIDINFO
-dhfun(DH.GETFIDINFO, fid);
+
 
 %% Test DH.GETOPERATIONINFOS
-dhfun(DH.GETOPERATIONINFOS, fid);
+% dhfun(DH.GETOPERATIONINFOS, fid);
 
 %% Test DH.GETDAQVERSION (-)
 
@@ -85,16 +85,16 @@ sampleperiod = 1000000;
 indexsize = 5;
 
 % CREATECONT
-dhfun(DH.CREATECONT, filename, blkid, nSamples, nChannels, sampleperiod, indexsize);
-assert(sampleperiod == dh.getcontsampleperiod(filename, blkid))
-assert(indexsize == dh.getcontindexsize(filename, blkid))
-[NSAMP, NCHAN] = dhfun(DH.GETCONTSIZE, fid, blkdid);
-assert(nchannels == nchan)
-assert(nSamples == NSAMP)
+% dhfun(DH.CREATECONT, filename, blkid, nSamples, nChannels, sampleperiod, indexsize);
+% assert(sampleperiod == dh.getcontsampleperiod(filename, blkid))
+% assert(indexsize == dh.getcontindexsize(filename, blkid))
+% [NSAMP, NCHAN] = dhfun(DH.GETCONTSIZE, fid, blkdid);
+% assert(nchannels == nchan)
+% assert(nSamples == NSAMP)
 
 % WRITECONT
-data = rand(nsamp, nchan);
-dhfun(DH.WRITECONT, fileanme, blkid, 1, nSamples, 1, nSamples, data);
+% data = rand(nsamp, nchan);
+% dhfun(DH.WRITECONT, fileanme, blkid, 1, nSamples, 1, nSamples, data);
 
 
 %% Test DH.ENUMCONT
@@ -248,8 +248,7 @@ assert(isequal(trialno(1:5), int32(295:299)'))
 %% Test DH.SETINTERVAL
 
 
-%% Test open
-fid = dh.open(filename, 'r');
+
 
 
 

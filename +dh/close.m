@@ -52,9 +52,7 @@
 
 function close(fid, varargin)
 
-arguments 
-    fid double
-end
+H5F.close(fid);
 
 
 
