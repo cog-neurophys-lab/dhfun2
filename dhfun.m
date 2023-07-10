@@ -2003,7 +2003,7 @@ switch iFunction
         error('Not implemented yet');
         
     case DH.GETCONTCALINFO
-        error('Not implemented yet');
+        varargout = {dh.getcontcalinfo(varargin{:})};
         
     case DH.SETCONTCALINFO
         error('Not implemented yet');
