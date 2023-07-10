@@ -31,15 +31,17 @@
 %  of only 1 item which gives the start time of continuous recording.
 %
 
-function [time, offset] = readcontindex(filename, blkid, rbeg, rend)
+function [time, offset] = readcontindex(fid, blkid, rbeg, rend)
 
 
 arguments
-    filename char
+    fid
     blkid double {mustBePositive, mustBeInteger}
     rbeg double {mustBePositive, mustBeInteger} = [1]
     rend double {mustBePositive, mustBeInteger} = []
 end
+
+filename = get_filename(fid);
 
 datasetPath = "/CONT" + blkid + "/INDEX";
 
