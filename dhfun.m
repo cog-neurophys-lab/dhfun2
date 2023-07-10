@@ -1881,7 +1881,7 @@ switch iFunction
         
         
     case DH.LISTOPENFIDS
-        error('Not implemented yet');
+        varargout = {[]};
     
     %
     %  --- General file service ------------------------
