@@ -15,4 +15,4 @@
 function samper = getwaveletsampleperiod(fid, blkid)
 
 filename = get_filename(fid);
-samper = h5readatt(filename, "/WAVELET" + blkid, 'SamplePeriod');
+samper = double(h5readatt(filename, "/WAVELET" + blkid, 'SamplePeriod'));

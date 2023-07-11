@@ -51,6 +51,6 @@ switch nargin
         error('Invalid number of input arguments. Should be 2 or 4')        
 end
 
-time = index.time;
+time = double(index.time);
 offset = index.offset;
-scaling = index.scaling;
+scaling = double(index.scaling);
