@@ -217,10 +217,18 @@ assert(idSpike == 0)
 %% Test DH.CREATEEV2
 
 %% Test DH.READEV2
+[time, event] = dhfun(DH.READEV2, filename);
+assert(length(time) == 10460)
+assert(length(event) == length(time))
+[time, event] = dhfun(DH.READEV2, filename, 1, 20);
+assert(length(time) == 20)
 
 %% Test DH.WRITEEV2
 
 %% Test DH.GETEV2SIZE
+nRecords = dhfun(DH.GETEV2SIZE, filename);
+assert(nRecords == 10460);
+
 
 %
 %  ---------- TRIALMAP interface -------------------

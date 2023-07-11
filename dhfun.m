@@ -1948,7 +1948,7 @@ switch FUNCTION
         
     case DH.READEV
         error('Not implemented yet');
-        
+
     case DH.WRITEEV
         error('Not implemented yet');
         
@@ -2124,13 +2124,15 @@ switch FUNCTION
         error('Not implemented yet');
         
     case DH.READEV2
-        error('Not implemented yet');
+        varargout = cell(1,2);
+        [varargout{:}] = dh.readev2(varargin{:});
+
         
     case DH.WRITEEV2
         error('Not implemented yet');
         
     case DH.GETEV2SIZE
-        error('Not implemented yet');
+        varargout = {dh.getev2size(varargin{:})};
         
     %
     %  ---------- TRIALMAP interface -------------------
