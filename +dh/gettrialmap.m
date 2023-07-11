@@ -31,6 +31,6 @@ trialMapData = h5read(filename, '/TRIALMAP');
 trialno = trialMapData.TrialNo;
 stimno = trialMapData.StimNo;
 outcome = trialMapData.Outcome;
-starttime = trialMapData.StartTime;
-endtime = trialMapData.EndTime;
+starttime = double(trialMapData.StartTime);
+endtime = double(trialMapData.EndTime);
 

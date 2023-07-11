@@ -23,5 +23,5 @@ switch nargin
         error('Wrong number of input arguments. Should be 1 or 3')
 end
 
-time = ev2.time;
-event = ev2.event;
+time = double(ev2.time);
+event = int32(ev2.event);
