@@ -191,6 +191,17 @@ idWavelets = dhfun(DH.ENUMWAVELET, filename);
 assert(isequal(idWavelets, [1, 1001]))
 
 %% Test DH.READWAVELET
+blkid = 1;
+chnbeg = 1; chnend =  1;
+frqbeg = 1; frqend = 10;
+sambeg = 1; samend = 20;
+[a, phi] = dhfun(DH.READWAVELET, filename, blkid);
+assert(isequal(size(a),size(phi)))
+[a, phi] = dhfun(DH.READWAVELET, filename, blkid, ...
+    chnbeg,chnend,sambeg,samend,frqbeg,frqend);
+assert(isequal(size(a), [frqend-frqbeg+1, samend-sambeg+1]))
+% TODO: check multi-channel case (3D array)
+
 
 %% Test DH.WRITEWAVELET
 

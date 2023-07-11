@@ -2076,7 +2076,8 @@ switch FUNCTION
         varargout = {dh.enumwavelet(varargin{:})};
         
     case DH.READWAVELET
-        error('Not implemented yet');
+        varargout = cell(1,2);
+        [varargout{:}] = dh.readwavelet(varargin{:});
         
     case DH.WRITEWAVELET
         error('Not implemented yet');
