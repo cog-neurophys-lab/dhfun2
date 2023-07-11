@@ -13,7 +13,11 @@ platforms supported by MATLAB (currently Windows, Linux, macOS and MATLAB Online
 `dhfun2` uses only 64-bit libraries, it can handle arrays larger than 4 GB and make use of
 the full available system RAM.
 
-`dhfun2` is freely available under the MIT license (see the file LICENSE for details).
+`dhfun2` is freely available under the MIT license (see the file LICENSE for details) and
+contains code and/or ideas from
+
+- Michael Borisov
+- Joscha Schmiedt (schmiedt@uni-bremen.de)
 
 Getting started with `dhfun2`
 -----------------------------
