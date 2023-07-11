@@ -18,7 +18,7 @@
 %  channel data with the corresponding channel's calinfo.
 function out = getcontcalinfo(fid, blkid)
 
-contInfo = dh.getcontinfo(fid, blkid);
-out = filter_by_name(contInfo.Attributes, "Calibration").Value;
+filename = get_filename(fid);
+out = h5readatt(filename, "/CONT" + blkid, 'Calibration');
 
 end

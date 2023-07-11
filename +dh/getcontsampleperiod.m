@@ -25,6 +25,4 @@ if ~ismember(blkid, contGroups)
     error('No such CONT block')
 end
 
-contAttributes = dh.getcontinfo(filename, blkid).Attributes;
-iSamplePeriodAttribute = cellfun(@(name) string(name) == "SamplePeriod", {contAttributes.Name});
-period = contAttributes(iSamplePeriodAttribute).Value;
+period = h5readatt(filename, "/CONT" + blkid, 'SamplePeriod');

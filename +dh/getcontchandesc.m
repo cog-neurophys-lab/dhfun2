@@ -33,12 +33,11 @@
 function [GCN,BCN,ABW,MAV,MIV,AC0] = getcontchandesc(fid, blkid)
 
 filename = get_filename(fid);
-contInfo = dh.getcontinfo(filename, blkid);
-channelAttributes = filter_by_name(contInfo.Attributes, 'Channels');
+channelAttributes = h5readatt(filename, "/CONT" + blkid, 'Channels');
 
-GCN = [channelAttributes.Value.GlobalChanNumber];
-BCN = [channelAttributes.Value.BoardChanNo];
-ABW = [channelAttributes.Value.ADCBitWidth];
-MAV = [channelAttributes.Value.MaxVoltageRange];
-MIV = [channelAttributes.Value.MinVoltageRange];
-AC0 = [channelAttributes.Value.AmplifChan0];
+GCN = [channelAttributes.GlobalChanNumber];
+BCN = [channelAttributes.BoardChanNo];
+ABW = [channelAttributes.ADCBitWidth];
+MAV = [channelAttributes.MaxVoltageRange];
+MIV = [channelAttributes.MinVoltageRange];
+AC0 = [channelAttributes.AmplifChan0];

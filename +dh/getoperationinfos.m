@@ -55,8 +55,7 @@ for operation = info.Groups'
 
     opinfo = [];
     for attributes = operation.Attributes'
-        fieldName = string(attributes.Name).replace(' ', '_').char();
-        
+        fieldName = string(attributes.Name).replace(' ', '_').char();                
         opinfo.(fieldName) = attributes.Value;
     end
     opinfos{iOp} = opinfo;
