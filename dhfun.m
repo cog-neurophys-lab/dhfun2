@@ -2028,13 +2028,13 @@ switch FUNCTION
         varargout = {dh.enumspike(varargin{:})};
         
     case DH.READSPIKE
-        error('Not implemented yet');
+        varargout = {dh.readspike(varargin{:})};
         
     case DH.WRITESPIKE
         error('Not implemented yet');
         
     case DH.READSPIKEINDEX
-        error('Not implemented yet');
+        varargout = {dh.readspikeindex(varargin{:})};
         
     case DH.WRITESPIKEINDEX
         error('Not implemented yet');
@@ -2049,10 +2049,10 @@ switch FUNCTION
         error('Not implemented yet');
         
     case DH.GETSPIKESIZE
-        error('Not implemented yet');
+        varargout = {dh.getspikesize(varargin{:})};
         
     case DH.GETNUMBERSPIKES
-        error('Not implemented yet');
+        varargout = {dh.getnumberspikes(varargin{:})};
         
     case DH.GETSPIKESAMPLEPERIOD
         error('Not implemented yet');

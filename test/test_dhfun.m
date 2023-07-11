@@ -156,11 +156,15 @@ idSpike = dhfun(DH.ENUMSPIKE, filename);
 assert(idSpike == 0)
 
 %% Test DH.READSPIKE
-
+blkid = 0;
+index = dhfun(DH.READSPIKE, filename, blkid);
 
 %% Test DH.WRITESPIKE
 
 %% Test DH.READSPIKEINDEX
+blkid = 0;
+tSpike = dhfun(DH.READSPIKEINDEX, filename, blkid);
+assert(length(tSpike) == 44366)
 
 %% Test DH.WRITESPIKEINDEX
 
@@ -171,8 +175,14 @@ assert(idSpike == 0)
 %% Test DH.WRITESPIKECLUSTER
 
 %% Test DH.GETSPIKESIZE
+blkid = 0;
+nChannels = dhfun(DH.GETSPIKESIZE, filename, blkid);
+assert(nChannels == 1)
 
 %% Test DH.GETNUMBERSPIKES
+blkid = 0;
+nSpikes = dhfun(DH.GETNUMBERSPIKES, filename, blkid);
+assert(nSpikes == 44366)
 
 %% Test DH.GETSPIKESAMPLEPERIOD
 
