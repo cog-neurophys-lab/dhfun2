@@ -1,15 +1,17 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration file="C:\Code\MATLAB\BrainBox\dhfun2\dhfun2.prj" location="C:\Code\MATLAB\BrainBox\dhfun2" name="dhfun2" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="619438853" file="C:\Code\MATLAB\BrainBox\dhfun2\dhfun2.prj" location="C:\Code\MATLAB\BrainBox\dhfun2" name="dhfun2" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>dhfun2</param.appname>
     <param.authnamewatermark>Joscha Schmiedt</param.authnamewatermark>
     <param.email>schmiedt@uni-bremen.de</param.email>
     <param.company>Universität Bremen</param.company>
-    <param.summary>Tools for reading data from the Cognitive Neurophysiology Lab</param.summary>
-    <param.description>This toolbox provides functions to read data recorded in the Cognitive Neurophysiology Lab since 2005 in the HDF5-based DAQ-HDF5 file format (*.dh5). 
+    <param.summary>Tools for reading DH5 data from the Cognitive Neurophysiology Lab at University of Bremen</param.summary>
+    <param.description>dhfun2 provides tools to read (and soon also write) data stored on disk using the in-house DAQ-HDF5 (DH5) file format of the Cognitive Neurophysiology Lab at University of Bremen. 
 
-dhfun2 can act as a drop-in replacement of the legacy dfhun, which used custom mex Functions to operate. These have been replaced by MATLAB's built-in HDF5 library.</param.description>
-    <param.screenshot />
-    <param.version>2023.07.10</param.version>
+dhfun2 can act as a drop-in replacement for the legacy function dhfun written by Michael Borisov, which was using a 32-bit C++ library via MATLAB's now legacy C Matrix API. dhfun2 instead relies on MATLAB's built-in HDF5 functionality, and is therefore compatible with all platforms supported by MATLAB (currently Windows, Linux, macOS and MATLAB Online). Since dhfun2 uses only 64-bit libraries, it can handle arrays larger than 4 GB and make use of the full available system RAM.
+
+dhfun2 is freely available under the MIT license. The source code is available on GitHub via https://github.com/cog-neurophys-lab/dhfun2</param.description>
+    <param.screenshot>${PROJECT_ROOT}\doc\logo.png</param.screenshot>
+    <param.version>2023.07.11</param.version>
     <param.output>${PROJECT_ROOT}\dhfun2.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -20,6 +22,7 @@ dhfun2 can act as a drop-in replacement of the legacy dfhun, which used custom m
 .gitignore
 test/
 README.md
+LICENSE
 doc/</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples />
@@ -48,7 +51,6 @@ doc/</param.exclude.filters>
     <param.additional.sw.mac.url />
     <param.additional.sw.linux.url />
     <unset>
-      <param.screenshot />
       <param.output />
       <param.products.name />
       <param.products.id />
@@ -83,6 +85,7 @@ doc/</param.exclude.filters>
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\+dh</file>
+      <file>${PROJECT_ROOT}\CHANGELOG.md</file>
       <file>${PROJECT_ROOT}\dhfun.m</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
