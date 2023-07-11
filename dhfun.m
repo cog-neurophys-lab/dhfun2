@@ -2040,10 +2040,10 @@ switch FUNCTION
         error('Not implemented yet');
         
     case DH.ISCLUSTERINFO_PRESENT
-        error('Not implemented yet');
+        varargout = {dh.isclusterinfo_present(varargin{:})};
         
     case DH.READSPIKECLUSTER
-        error('Not implemented yet');
+        varargout = {dh.readspikecluster(varargin{:})};
         
     case DH.WRITESPIKECLUSTER
         error('Not implemented yet');
@@ -2055,10 +2055,11 @@ switch FUNCTION
         varargout = {dh.getnumberspikes(varargin{:})};
         
     case DH.GETSPIKESAMPLEPERIOD
-        error('Not implemented yet');
+        varargout = {dh.getspikesampleperiod(varargin{:})};
         
     case DH.GETSPIKEPARAMS
-        error('Not implemented yet');
+        varargout = cell(1,3);
+        [varargout{:}] = dh.getspikeparams(varargin{:});
         
     case DH.GETSPIKECHANDESC
         error('Not implemented yet');

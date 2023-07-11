@@ -22,9 +22,9 @@ filename = get_filename(fid);
 
 switch nargin
     case 2
-        time = h5read(filename, "/SPIKE" + blkid + "/INDEX");
+        time = double(h5read(filename, "/SPIKE" + blkid + "/INDEX"));
     case 4
-        time = h5read(filename, "/SPIKE" + blkid + "/INDEX", rbeg, rend-rbeg+1);
+        time = double(h5read(filename, "/SPIKE" + blkid + "/INDEX", rbeg, rend-rbeg+1));
     otherwise
         error('dhfun2:readspikeindex:invalidNargin',  ...
         'Invalid number of arguments (%g). Should be 2 or 4.', nargin)
