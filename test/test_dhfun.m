@@ -169,8 +169,15 @@ assert(length(tSpike) == 44366)
 %% Test DH.WRITESPIKEINDEX
 
 %% Test DH.ISCLUSTERINFO_PRESENT
+blkid = 0;
+isPresent = dhfun(DH.ISCLUSTERINFO_PRESENT, filename, blkid);
+assert(isPresent)
 
 %% Test DH.READSPIKECLUSTER
+blkid = 0;
+clus = dhfun(DH.READSPIKECLUSTER, filename, blkid);
+assert(isa(clus, "double"))
+assert(length(clus) == dh.getnumberspikes(filename, blkid))
 
 %% Test DH.WRITESPIKECLUSTER
 
@@ -185,8 +192,13 @@ nSpikes = dhfun(DH.GETNUMBERSPIKES, filename, blkid);
 assert(nSpikes == 44366)
 
 %% Test DH.GETSPIKESAMPLEPERIOD
+blkid = 0;
+period = dhfun(DH.GETSPIKESAMPLEPERIOD, filename, blkid);
+
 
 %% Test DH.GETSPIKEPARAMS
+blkid = 0;
+params = dhfun(DH.GETSPIKEPARAMS, filename, blkid);
 
 %% Test DH.GETSPIKECHANDESC (-)
 
