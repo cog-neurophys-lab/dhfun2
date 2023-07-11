@@ -104,7 +104,8 @@ idCont = dhfun(DH.ENUMCONT, filename);
 assert(isequal(idCont, [1, 1001, 60, 61, 62, 63, 64]))
 
 %% Test DH.READCONT
-data = dhfun(DH.READCONT, filename, 1);
+blkid = 1;
+data = dhfun(DH.READCONT, filename, blkid);
 assert(isequal(data(1:5), int16([-348   -290   -201   -224   -289])));
 
 %% Test DH.READCONTINDEX
@@ -114,22 +115,26 @@ assert(isequal(size(timeSelection), [5, 1]))
 %% Test DH.WRITECONTINDEX
 
 %% Test DH.GETCONTSIZE
-[nSamples, nChannels] = dhfun(DH.GETCONTSIZE, filename, 1);
+blkid = 1;
+[nSamples, nChannels] = dhfun(DH.GETCONTSIZE, filename, blkid);
 assert(nSamples == 1443184);
 assert(nChannels == 1);
 
 %% Test DH.GETCONTINDEXSIZE
-items = dhfun(DH.GETCONTINDEXSIZE, filename, 1);
+blkid = 1;
+items = dhfun(DH.GETCONTINDEXSIZE, filename, blkid);
 assert(items == 385)
 
 %% Test DH.GETCONTSAMPLEPERIOD
-period = dhfun(DH.GETCONTSAMPLEPERIOD, filename, 1);
+blkid = 1;
+period = dhfun(DH.GETCONTSAMPLEPERIOD, filename, blkid);
 assert(period == 1000000)
 
 %% Test DH.SETCONTSAMPLEPERIOD
 
 %% Test DH.GETCONTCALINFO
-cal = dhfun(DH.GETCONTCALINFO, filename, 1);
+blkid = 1;
+cal = dhfun(DH.GETCONTCALINFO, filename, blkid);
 assert(abs(cal - 0.000000101725260416666673195878968418565113651652609405573457) < eps)
 
 %% Test DH.SETCONTCALINFO
@@ -182,20 +187,39 @@ assert(idSpike == 0)
 %% Test DH.CREATEWAVELET
 
 %% Test DH.ENUMWAVELET
+idWavelets = dhfun(DH.ENUMWAVELET, filename);
+assert(isequal(idWavelets, [1, 1001]))
 
 %% Test DH.READWAVELET
 
 %% Test DH.WRITEWAVELET
 
 %% Test DH.READWAVELETINDEX
+blkid = 1;
+[time, offset, scaling] = dhfun(DH.READWAVELETINDEX, filename, blkid);
+assert(length(time) == length(offset))
+assert(length(offset) == length(scaling))
+
+[time, offset, scaling] = dhfun(DH.READWAVELETINDEX, filename, blkid, 5, 10);
+assert(length(time) == 6)
 
 %% Test DH.WRITEWAVELETINDEX
 
 %% Test DH.GETWAVELETSIZE
+blkid = 1;
+[nChannels, nSamples, nFreqs] = dhfun(DH.GETWAVELETSIZE, filename, blkid);
+assert(nChannels == 1)
+assert(nSamples == 144117)
+assert(nFreqs == 35)
 
 %% Test DH.GETWAVELETINDEXSIZE
+blkid = 1;
+nRecords = dhfun(DH.GETWAVELETINDEXSIZE, filename, blkid);
+assert(nRecords == 385)
 
 %% Test DH.GETWAVELETSAMPLEPERIOD
+blkid = 1;
+sampleperiod = dhfun(DH.GETWAVELETSAMPLEPERIOD, filename, blkid);
 
 %% Test DH.SETWAVELETSAMPLEPERIOD
 
@@ -204,6 +228,9 @@ assert(idSpike == 0)
 %% Test DH.SETWAVELETCHANDESC        (-)
 
 %% Test DH.GETWAVELETFAXIS
+blkid = 1;
+faxis = dhfun(DH.GETWAVELETFAXIS, filename, blkid);
+assert(length(faxis) == 35)
 
 %% Test DH.SETWAVELETFAXIS
 

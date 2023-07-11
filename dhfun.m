@@ -2073,7 +2073,7 @@ switch FUNCTION
         error('Not implemented yet');
         
     case DH.ENUMWAVELET
-        error('Not implemented yet');
+        varargout = {dh.enumwavelet(varargin{:})};
         
     case DH.READWAVELET
         error('Not implemented yet');
@@ -2082,19 +2082,21 @@ switch FUNCTION
         error('Not implemented yet');
         
     case DH.READWAVELETINDEX
-        error('Not implemented yet');
+        varargout = cell(1,3);
+        [varargout{:}] = dh.readwaveletindex(varargin{:});        
         
     case DH.WRITEWAVELETINDEX
         error('Not implemented yet');
         
     case DH.GETWAVELETSIZE
-        error('Not implemented yet');
+        varargout = cell(1,3);
+        [varargout{:}] = dh.getwaveletsize(varargin{:});
         
     case DH.GETWAVELETINDEXSIZE
-        error('Not implemented yet');
+        varargout = {dh.getwaveletindexsize(varargin{:})};
         
     case DH.GETWAVELETSAMPLEPERIOD
-        error('Not implemented yet');
+        varargout = {dh.getwaveletsampleperiod(varargin{:})};
         
     case DH.SETWAVELETSAMPLEPERIOD
         error('Not implemented yet');
@@ -2106,7 +2108,7 @@ switch FUNCTION
         error('Not implemented yet');
         
     case DH.GETWAVELETFAXIS
-        error('Not implemented yet');
+        varargout = {dh.getwaveletfaxis(varargin{:})};        
         
     case DH.SETWAVELETFAXIS
         error('Not implemented yet');
