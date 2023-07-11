@@ -25,7 +25,7 @@ function [trialno,stimno,outcome,starttime,endtime] = gettrialmap(fid)
 
 filename = get_filename(fid);
 
-trialMapInfo = h5info(filename, '/TRIALMAP');
+% trialMapInfo = h5info(filename, '/TRIALMAP');
 trialMapData = h5read(filename, '/TRIALMAP');
 
 trialno = trialMapData.TrialNo;
