@@ -20,10 +20,7 @@ dhfun2 is freely available under the MIT license. The source code is available o
     <param.guid>6ec8156f-c498-4681-bffb-64e94d88cccd</param.guid>
     <param.exclude.filters>.git
 .gitignore
-test/
-README.md
-LICENSE
-doc/</param.exclude.filters>
+test/</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples />
     <param.demosxml />
@@ -85,8 +82,10 @@ doc/</param.exclude.filters>
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\+dh</file>
-      <file>${PROJECT_ROOT}\CHANGELOG.md</file>
       <file>${PROJECT_ROOT}\dhfun.m</file>
+      <file>${PROJECT_ROOT}\doc</file>
+      <file>${PROJECT_ROOT}\LICENSE</file>
+      <file>${PROJECT_ROOT}\README.md</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded />
