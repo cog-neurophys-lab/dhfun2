@@ -14,10 +14,10 @@
 %  OUTPUT - output variable. A matrix sized [SAMEND-SAMBEG+1,CHNEND-CHNBEG+1]
 %           will be returned.
 
-function data = readcont(filename, blkid, sambeg, samend, chnbeg, chnend)
+function data = readcont(fid, blkid, sambeg, samend, chnbeg, chnend)
 
 arguments
-    filename char
+    fid
     blkid double {mustBePositive, mustBeInteger}
     sambeg double {mustBePositive, mustBeInteger} = []
     samend double {mustBePositive, mustBeInteger} = []    
@@ -25,13 +25,14 @@ arguments
     chnend double {mustBePositive, mustBeInteger} = []    
 end
 
-datasetPath = "/CONT" + blkid + "/DATA";
+filename = get_filename(fid);
 
+datasetPath = "/CONT" + blkid + "/DATA";
 
 if nargin == 2
     data = h5read(filename, datasetPath);
 else
-    data = h5read(filename, datasetPath, [sambeg, chnbeg], [samend-sambeg+1, chnend-chnbeg+1]);
+    data = h5read(filename, datasetPath, [chnbeg, sambeg], [chnend-chnbeg+1, samend-sambeg+1]);
 end
 
 
