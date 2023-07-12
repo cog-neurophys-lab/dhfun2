@@ -42,6 +42,7 @@ data.trial = {};
 data.sampleinfo = [];
 data.trialinfo = [];
 data.cfg = [];
+data.hdr = [];
 
 for id = blkid'
     contData = dh.readcont(filename, id);
