@@ -36,6 +36,8 @@ if ~all(samplePeriods(1) == samplePeriods)
     error("dhfun2:ft_read_header", "Sampling periods of CONT blocks in DH5 file don't match")
 end
 header.Fs = 1/samplePeriods(1)*1E9;
+% header.TimeStampPerSample = samplePeriods;
+% header.FirstTimeStamp = 
 
 %% number of samples
 nSamples = zeros(size(conts));
@@ -59,7 +61,7 @@ for iCont = 1:length(conts)
     cont = conts(iCont);
     [~, nChanInCont] = dh.getcontsize(filename, cont);
     for iChan = 0:nChanInCont-1
-        header.label{count} = sprintf("CONT%04d-%03d", cont, iChan);
+        header.label{count} = sprintf("CONT%d/%02d", cont, iChan);
         header.chantype{count} = 'lfp';
         header.chanunit{count} = 'V';
         count = count + 1;
