@@ -10,4 +10,8 @@ else
     error("Cannot determine filename from fid/filename");
 end
 
+if H5F.is_hdf5(filename) == 0
+        error('File (%s) is not HDF5', filename);
+end
+
 end
