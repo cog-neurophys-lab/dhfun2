@@ -2,7 +2,7 @@ function events = ft_read_event(filename, header)
 % DH.FT_READ_EVENT reads an events from a DAQ-HDF5 (DH5) file in FieldTrip format
 %
 % To be used with ft_read_data as follows:
-%   event = ft_read_event(filename, 'eventformat', 'dh.ft_read_event');
+%   event = ft_read_event(filename, 'eventformat', 'daq_hdf5');
 %
 % This function returns an event structure with the following fields
 %   event.type      = string
@@ -12,26 +12,34 @@ function events = ft_read_event(filename, header)
 %   event.duration  = expressed in samples
 %   event.timestamp = expressed in timestamp units, which vary over systems (optional)
 
-
-events = [];
-
+% read event information from the file
 [time, evt] = dh.readev2(filename);
 trialmap = h5read(filename, '/TRIALMAP');
+nEvents = length(evt) + length(trialmap.TrialNo);
 
-%  TRIALNO - TrialNo member of TRIALMAP_ITEM struct
-%            usually corresponds to the TrialNo member of
-%            TD01 item associated with a particular trial
-%  STIMNO - StimNo member of TRIALMAP_ITEM struct
-%            usually corresponds to the StimNo member of
-%            TD01 item associated with a particular trial
-%  OUTCOME - Outcome member of TRIALMAP_ITEM struct
-%            contains trial outcome code
-%  STARTTIME - StartTime member of TRIALMAP_ITEM struct
-%            contains start time of trial in nanoseconds
-%  ENDTIME  - EndTime member of TRIALMAP_ITEM struct
-%            contains end time of trial in nanoseconds
+% pre-allocate array of structs with nEvents elements
+events = struct('type', cell(nEvents,1), ...
+    'value', 0, ...
+    'sample', 0, ...
+    'offset', 0, ...
+    'duration', 0, ...
+    'timestamp', 0);
 
-if isempty(events)
-    % ensure that it has the correct fields, even if it is empty
-    events = struct('type', {}, 'value', {}, 'sample', {}, 'offset', {}, 'duration', {});
+% convert trigger to events 
+for iEvent = 1:length(evt)
+    events(iEvent).type = 'trigger';
+    events(iEvent).value = evt(iEvent);
+    events(iEvent).sample = round(time(iEvent) * header.Fs * 1e-9);
+    events(iEvent).offset = 0;
+    events(iEvent).duration = 1;
+    events(iEvent).timestamp = 0;
+end
+
+% convert trialmap to events with duration
+for iTrial = 1:length(trialmap.TrialNo)
+    events(iEvent+iTrial).type = 'trial';
+    events(iEvent+iTrial).value = trialmap.TrialNo(iTrial);
+    events(iEvent+iTrial).sample = round(trialmap.StartTime(iTrial) * header.Fs * 1e-9);
+    events(iEvent+iTrial).offset = 0;
+    events(iEvent+iTrial).duration = round((trialmap.EndTime(iTrial) - trialmap.StartTime(iTrial)) * header.Fs * 1e-9);
 end
