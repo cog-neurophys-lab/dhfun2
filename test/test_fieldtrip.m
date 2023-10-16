@@ -18,8 +18,14 @@ assert(length(header.label) == length(header.chanunit));
 assert(length(header.label) == length(header.chantype));
 
 %% test read_events
+events = dh.ft_read_event(filename, header);
+assert(length(events) == 10845);
 
 
 %% test read_data
+dat = dh.ft_read_data(filename, header, 1, 200, 1);
+if fieldtripIsAvailable
+    cfg = [];
+    cfg.datafile = filename;
 
-
+end
