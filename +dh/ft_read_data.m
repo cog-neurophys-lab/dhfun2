@@ -3,14 +3,10 @@ function data = ft_read_data(filename, hdr, begsample, endsample, chanindx)
 conts = dh.enumcont(filename);
 selectedConts = conts(chanindx);
 
-nSamples = zeros(size(conts));
-nChannels = 0;
-for iCont = 1:length(selectedConts)
-    [nSamples(iCont), nChanInCont] = dh.getcontsize(filename, conts(iCont));
-    nChannels = nChannels + nChanInCont;
-end
+[nSamples, nChanInCont] = dh.getcontsize(filename, selectedConts);
+nChannels = sum(nChanInCont);
 
-if ~all(nSamples <= endsample-begsample+1)
+if ~all(nSamples >= endsample-begsample+1)
     error('Not all channels have enough samples');
 end
 

@@ -1,5 +1,5 @@
 function events = ft_read_event(filename, header)
-% DH.FT_READ_EVENT reads an events from a DAQ-HDF5 (DH5) file in FieldTrip format
+% DH.FT_READ_EVENT reads events from a DAQ-HDF5 (DH5) file in FieldTrip format
 %
 % To be used with ft_read_data as follows:
 %   event = ft_read_event(filename, 'eventformat', 'daq_hdf5');

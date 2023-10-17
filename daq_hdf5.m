@@ -20,7 +20,7 @@ switch nargin
         
     case 2
         % read the events
-        evt = dh.ft_read_events(filename, hdr);
+        evt = dh.ft_read_event(filename, hdr);
         varargout = {evt};
         
     case 5
