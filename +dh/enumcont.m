@@ -29,6 +29,6 @@ spikeGroups = info.Groups( ...
     cellfun(@(x) string(x).startsWith("/CONT") , {info.Groups.Name}) ...
     );
 
-idCont = cellfun(@(x) str2double(x(6:end)), {spikeGroups.Name});
+idCont = sort(cellfun(@(x) str2double(x(6:end)), {spikeGroups.Name}));
 
 end
