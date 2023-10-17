@@ -2,7 +2,7 @@ function header = ft_read_header(filename)
 % This returns a header structure with the following fields
 %   header.Fs          = sampling frequency
 %   header.nChans      = number of channels
-%   header.nSamples    = number of samples per trial
+%   header.nSamples    = number of samples
 %   header.nSamplesPre = number of pre-trigger samples in each trial
 %   header.nTrials     = number of trials
 %   header.label       = Nx1 cell-array with the label of each channel
@@ -15,7 +15,6 @@ function header = ft_read_header(filename)
 %   header.TimeStampPerSample  number, represented in double precision
 %
 
-
 header = [];
 
 %% TODO: handle selection of CONT blocks
@@ -27,31 +26,40 @@ header.nTrials = length(trialMapData.TrialNo);
 
 
 %% determine sampling frequency
-samplePeriods = zeros(size(conts));
-for iCont = 1:length(conts)
-    cont = conts(iCont);
-    samplePeriods(iCont) = dh.getcontsampleperiod(filename, cont);
-end
+samplePeriods = dh.getcontsampleperiod(filename, conts);
+
 if ~all(samplePeriods(1) == samplePeriods)
-    error("dhfun2:ft_read_header", "Sampling periods of CONT blocks in DH5 file don't match")
+
+    % select the most occuring sampling period
+    [mostCommonSamplePeriod, iSelectedSamplePeriods] = pick_most_common_element(samplePeriods);
+    warning("dhfun2:ft_read_header:NonMatchingSamplePeriods", ...
+        "Sampling periods of CONT blocks in DH5 file don't match.\n\tExcluding CONT blocks:\n\t %s", num2str(conts(samplePeriods(1) ~= samplePeriods)))
+    header.Fs = 1./mostCommonSamplePeriod*1e9;
+    conts = conts(iSelectedSamplePeriods);
+else
+    header.Fs = 1/samplePeriods(1)*1E9;
+
 end
-header.Fs = 1/samplePeriods(1)*1E9;
 % header.TimeStampPerSample = samplePeriods;
-% header.FirstTimeStamp = 
+% header.FirstTimeStamp =
 
 %% number of samples
-nSamples = zeros(size(conts));
-nChannels = 0;
-for iCont = 1:length(conts)
-    [nSamples(iCont), nChanInCont] = dh.getcontsize(filename, conts(iCont));
-    nChannels = nChannels + nChanInCont;
-end
+[nSamples, nChanInCont] = dh.getcontsize(filename, conts);
+
 % check if its the same across CONT blocks
 if ~all(nSamples(1) == nSamples)
-    error("dhfun2:ft_read_header", "Number of samples in CONT blocks of DH5 file don't match")
+
+    % select the most common number of samples
+    [mostCommonNSamples, iSelectedNSamples] = pick_most_common_element(nSamples);
+    warning("dhfun2:ft_read_header:NonMatchingNSamples", "Number of samples in CONT blocks of DH5 file don't match.\n\tExcluding CONT blocks:\n\t %s", num2str(conts(nSamples(1) ~= nSamples)));
+    header.nSamples = mostCommonNSamples;
+    conts = conts(iSelectedNSamples);
+    nChanInCont = nChanInCont(iSelectedNSamples);
+else
+    header.nSamples = nSamples(1);
 end
-header.nSamples = nSamples(1);
 header.nSamplesPre = 0;
+nChannels = sum(nChanInCont);
 
 %% channel labels
 header.label = cell(1, nChannels);
@@ -59,9 +67,8 @@ header.chancount = cell(1, nChannels);
 count = 1;
 for iCont = 1:length(conts)
     cont = conts(iCont);
-    [~, nChanInCont] = dh.getcontsize(filename, cont);
-    for iChan = 0:nChanInCont-1
-        header.label{count} = sprintf("CONT%d/%02d", cont, iChan);
+    for iChan = 0:nChanInCont(iCont)-1
+        header.label{count} = sprintf('CONT%d/%02d', cont, iChan);
         header.chantype{count} = 'lfp';
         header.chanunit{count} = 'V';
         count = count + 1;
