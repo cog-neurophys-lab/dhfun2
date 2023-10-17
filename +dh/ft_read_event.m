@@ -32,7 +32,7 @@ for iEvent = 1:length(evt)
     events(iEvent).sample = round(double(time(iEvent) - header.FirstTimeStamp) * header.Fs * 1e-9) + 1;
     events(iEvent).offset = 0;
     events(iEvent).duration = 1;
-    events(iEvent).timestamp = 0;
+    events(iEvent).timestamp = double(time(iEvent));
 end
 
 % convert trialmap to events with duration
