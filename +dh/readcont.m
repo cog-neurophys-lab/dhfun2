@@ -20,19 +20,25 @@ arguments
     fid
     blkid double {mustBePositive, mustBeInteger}
     sambeg double {mustBePositive, mustBeInteger} = []
-    samend double {mustBePositive, mustBeInteger} = []    
-    chnbeg double {mustBePositive, mustBeInteger} = []    
-    chnend double {mustBePositive, mustBeInteger} = []    
+    samend double {mustBePositive, mustBeInteger} = []
+    chnbeg double {mustBePositive, mustBeInteger} = []
+    chnend double {mustBePositive, mustBeInteger} = []
 end
 
 filename = get_filename(fid);
 
 datasetPath = "/CONT" + blkid + "/DATA";
 
-if nargin == 2
-    data = h5read(filename, datasetPath);
-else
-    data = h5read(filename, datasetPath, [chnbeg, sambeg], [chnend-chnbeg+1, samend-sambeg+1]);
+switch nargin
+    case 2
+        data = h5read(filename, datasetPath);
+    case 4
+        [~, nChannels] =  dh.getcontsize(filename, blkid);
+        data = h5read(filename, datasetPath, [1, sambeg], [nChannels, samend-sambeg+1]);
+    case 6
+        data = h5read(filename, datasetPath, [chnbeg, sambeg], [chnend-chnbeg+1, samend-sambeg+1]);
+    otherwise
+        error("Invalid number of input arguments %d", nargin)
 end
 
 
