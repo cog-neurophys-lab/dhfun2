@@ -5,36 +5,6 @@ arguments
     blkid double {mustBeInteger,mustBePositive} = []
 end
 
-% FT_DATATYPE_RAW describes the FieldTrip MATLAB structure for raw data
-%
-% The raw datatype represents sensor-level time-domain data typically
-% obtained after calling FT_DEFINETRIAL and FT_PREPROCESSING. It contains
-% one or multiple segments of data, each represented as Nchan X Ntime
-% arrays.
-%
-% An example of a raw data structure with 151 MEG channels is
-%
-%          label: {151x1 cell}      the channel labels represented as a cell-array of strings
-%           time: {1x266 cell}      the time axis [1*Ntime double] per trial
-%          trial: {1x266 cell}      the numeric data as a cell array, with a matrix of [151*Ntime double] per trial
-%     sampleinfo: [266x2 double]    the begin and endsample of each trial relative to the recording on disk
-%      trialinfo: [266x1 double]    optional trigger or condition codes for each trial
-%            hdr: [1x1 struct]      the full header information of the original dataset on disk
-%           grad: [1x1 struct]      information about the sensor array (for EEG it is called elec)
-%            cfg: [1x1 struct]      the configuration used by the function that generated this data structure
-%
-% Required fields:
-%   - time, trial, label
-%
-% Optional fields:
-%   - sampleinfo, trialinfo, grad, elec, opto, hdr, cfg
-%
-% Deprecated fields:
-%   - fsample
-%
-% Obsoleted fields:
-%   - offset
-
 data = [];
 data.label = {};
 data.time = {};
@@ -43,28 +13,40 @@ data.sampleinfo = [];
 data.trialinfo = [];
 data.cfg = [];
 
+allContIds = dh.enumcont(filename);
+
 % take all cont blocks if blkid is not specified
 if isempty(blkid)
-    blkid = dh.enumcont(filename);
+    blkid = allContIds;
 end
 
-nSamples = zeros(length(blkid),1);
-nChanInCont = zeros(length(blkid),1);
-
-nChannels = 0;
-for iCont = 1:length(blkid)
-    [nSamples(iCont), nChanInCont(iCont)] = dh.getcontsize(filename, blkid(iCont));
-    nChannels = nChannels + nChanInCont(iCont);
+if any(~ismember(blkid, allContIds))
+    error('dhfun2:ft_read_cont:InvalidBlockId', 'Invalid CONT block ID specified');
 end
 
+[nSamples, nChanInCont] = dh.getcontsize(filename, blkid);
 if ~all(nSamples == nSamples(1))
-    error('Not all selected CONT blocks have the same number of samples');
+    error('dhfun2:ft_read_cont:NonMatchingNumberOfSamples', 'Not all selected CONT blocks have the same number of samples');
 end
+nSamples = nSamples(1);
+nChannels = sum(nChanInCont);
+
+
+samplePeriod = dh.getcontsampleperiod(filename, blkid);
+if ~all(samplePeriod == samplePeriod(1))
+    error('dhfun2:ft_read_cont:NonMatchingSamplePeriods','Not all selected CONT blocks have the same sample period');
+end
+samplePeriod = samplePeriod(1);
+data.fsample = 1/samplePeriod*1E9;
+
+nIndex = dh.getcontindexsize(filename, blkid);
+if any(nIndex > 1)
+    warning('dhfun2:ft_read_cont:MultipleTrialsPerCont', 'File contains multiple trials per CONT block. This is not (yet) supported. All trials will be concatenated into one trial.');
+end
+
 
 data.label = cell(1,nChannels);
-
-
-data.trial = {zeros(nChannels, nSamples(1))};
+data.trial = {zeros(nChannels, nSamples)};
 
 channelBegin = 1;
 for iCont = 1:length(blkid)
@@ -77,11 +59,39 @@ for iCont = 1:length(blkid)
     channelBegin = channelEnd+1;
 end
 
+% time of first sample
+tStart = zeros(1,length(blkid));
+for iCont = 1:length(blkid)
+    [time, offset] = dh.readcontindex(filename, blkid(iCont));
+    tStart(iCont) = time(1);
+end
+if ~all(tStart == tStart(1))
+    warning('dhfun2:ft_read_cont:NonMatchingStartTime', 'Not all selected CONT blocks have the same start time. The first start time will be used.');
+end
+tStart = tStart(1)/1e9;
+
+% time
+data.time = {(0:nSamples-1)*samplePeriod/1E9 + tStart};
+
+% sampleinfo: the begin and endsample of each trial relative to the recording on disk
+data.sampleinfo = [1, nSamples];
+
+% hdr (header information of the original dataset on disk)
+data.hdr = dh.ft_read_header(filename);
+
+% cfg
+data.cfg = [];
+data.cfg.previous = [];
+data.cfg.filename = filename;
+data.cfg.iContBlock = blkid;
+data.cfg.date = datetime();
+data.cfg.operator = char(java.lang.System.getProperty('user.name'));
+data.cfg.tool = "dhfun2:ft_read_cont";
+data.cfg.dhfunVersion = dh.version();
+[data.cfg.previous.opnames, data.cfg.previous.opinfos] = dh.getoperationinfos(filename);
+
 % TODO:
-% - sampleinfo
 % - trialinfo
-% - hdr
-% - time
 
 % Check data if Fieldtrip is available on the path
 if exist('ft_defaults', 'file') == 2

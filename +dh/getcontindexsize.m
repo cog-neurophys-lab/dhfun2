@@ -22,8 +22,12 @@ if ~ismember(blkid, contGroups)
     error('No such CONT block')
 end
 
+contInfo = dh.getcontinfo(filename, blkid);
+items = zeros(1, length(blkid));
 
-items = dh.getcontinfo(filename, blkid).Datasets(2).Dataspace.Size;
+for iCont = 1:length(blkid)
+    items(iCont) = contInfo(iCont).Datasets(2).Dataspace.Size;
+end
 
 end
 
