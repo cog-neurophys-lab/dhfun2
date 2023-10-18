@@ -31,3 +31,22 @@ options:
    Toolbox (mltbx) and install via double-click.
 3. Clone the Git repository and add the folder to MATLAB path.
 
+
+Reading DH5 data into Fieldtrip
+-------------------------------
+
+To load continous (CONT) data from a DH5 file into MATLAB in a format compatible with the
+toolbox [Fieldtrip](https://www.fieldtriptoolbox.org) use the function
+[`dh.ft_read_cont`](+dh/ft_read_cont.m):
+```matlab
+>>  [data, events] = ft_read_cont(filename, contIDs);
+```
+
+Use the `events` in combination with a custom `trialfun` to create trials using
+[`ft_redefinetrial`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_redefinetrial.m).
+See [`dh.trialfun_general`](+dh/trialfun_general.m) for an example.
+
+This data can then directly be processed by Fieldtrip functions such as
+[`ft_preprocessing`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_preprocessing.m),
+[`ft_timelockanalysis`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_timelockanalysis.m),
+or [`ft_freqanalysis`](https://www.fieldtriptoolbox.org/walkthrough/#frequency-analysis). See the [Fieldtrip documentation](https://www.fieldtriptoolbox.org/documentation/) for more information.
