@@ -16,8 +16,6 @@ function [data, events] = ft_read_cont(filename, blkid, options)
 %
 % See also FT_DATATYPE_RAW, FT_READ_EVENT, FT_READ_HEADER, FT_READ_DATA
 
-
-
 arguments
     filename char = ''
     blkid double {mustBeInteger,mustBePositive} = []
