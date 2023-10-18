@@ -1,11 +1,15 @@
-function data = ft_read_cont(filename, blkid)
+function [data, events] = ft_read_cont(filename, blkid, options)
 
 arguments
     filename char
     blkid double {mustBeInteger,mustBePositive} = []
+    options.feedback string = "yes";
 end
 
 
+if options.feedback == "yes"
+    fprintf('Reading continuous data from %s \n', filename);
+end
 
 % take all cont blocks if blkid is not specified
 if isempty(blkid)
@@ -13,6 +17,9 @@ if isempty(blkid)
 end
 
 % hdr (header information of the original dataset on disk)
+if options.feedback == "yes"
+    fprintf('Reading header information\n')
+end
 data.hdr = dh.ft_read_header(filename, blkid);
 
 blkid = data.hdr.includedContIds;
@@ -35,9 +42,15 @@ isTrialBasedRecording = any(nTrialsInCont > 1);
 
 [nSamplesInCont, nChanInCont] = dh.getcontsize(filename, blkid);
 
-
+if options.feedback == "yes"
+    fprintf('Reading %d CONT blocks:\t\t', length(blkid));
+end
 channelBegin = 1;
+print_progress('');
 for iCont = 1:length(blkid)
+    if options.feedback == "yes"
+        print_progress(sprintf('%d', iCont));
+    end
 
     % read data from disk
     contData = double(dh.readcont(filename, blkid(iCont)));
@@ -78,8 +91,7 @@ for iCont = 1:length(blkid)
         % continuous recording / single trial
         if iCont == 1
             data.trial = {zeros(data.hdr.nChans, data.hdr.nSamples)};
-            data.time = {(0:data.hdr.nSamples-1)*data.hdr.Fs + data.hdr.FirstTimeStamp};
-            % sampleinfo: the begin and endsample of each trial relative to the recording on disk
+            data.time = {(0:data.hdr.nSamples-1)*data.hdr.Fs + data.hdr.FirstTimeStamp};         
             data.sampleinfo = [1, data.hdr.nSamples];
         end
         data.trial{1}(channelBegin:channelEnd,:) = contData;        
@@ -88,7 +100,7 @@ for iCont = 1:length(blkid)
     % move to next channel range
     channelBegin = channelEnd+1;
 end
-
+print_progress('');
 
 
 % cfg
@@ -102,10 +114,18 @@ data.cfg.tool = "dhfun2:ft_read_cont";
 data.cfg.dhfunVersion = dh.version();
 [data.cfg.previous.opnames, data.cfg.previous.opinfos] = dh.getoperationinfos(filename);
 
-% Check data if Fieldtrip is available on the path
-if exist('ft_defaults', 'file') == 2
-    ft_defaults;
-    data = ft_checkdata(data, 'datatype', 'raw', 'feedback', 'yes', 'ismeg', 'no', 'iseeg', 'no');
+if nargout == 2
+    if options.feedback == "yes"
+        fprintf('Reading events\n');
+    end
+    events = dh.ft_read_event(filename, data.hdr);
+else
+    events = [];
 end
+
+if options.feedback == "yes"
+    fprintf('Finished. Dataset uses %g MB of RAM\n', whos('data').bytes/1024/1024);
+end
+
 
 end
