@@ -1,9 +1,9 @@
-dhfun2 - Reading DAQ-HDF5 files with MATLAB's HDF5 library
-==========================================================
+dhfun2 - Reading DAQ-HDF5 (DH5) files into MATLAB
+=================================================
 
-dhfun2 provides tools to read (and soon also write) data stored on disk using the in-house
-[DAQ-HDF5 (DH5) file format](https://github.com/cog-neurophys-lab/DAQ-HDF5) of the Cognitive
-Neurophysiology Lab at University of Bremen.
+dhfun2 provides MATLAB tools to read electrophysiology data stored on disk using the
+in-house [DAQ-HDF5 (DH5) file format](https://github.com/cog-neurophys-lab/DAQ-HDF5) of the
+Cognitive Neurophysiology Lab at University of Bremen.
 
 `dhfun2` can act as a drop-in replacement for the legacy function `dhfun` written by Michael
 Borisov, which was using a 32-bit C++ library via MATLAB's now legacy [C Matrix
