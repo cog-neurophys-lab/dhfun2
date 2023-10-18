@@ -39,7 +39,7 @@ To load continous (CONT) data from a DH5 file into MATLAB in a format compatible
 toolbox [Fieldtrip](https://www.fieldtriptoolbox.org) use the function
 [`dh.ft_read_cont`](+dh/ft_read_cont.m):
 ```matlab
->>  [data, events] = ft_read_cont(filename, contIDs);
+>>  [data, events] = dh.ft_read_cont(filename, contIDs);
 ```
 
 Use the `events` in combination with a custom `trialfun` to create trials using
