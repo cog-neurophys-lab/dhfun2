@@ -1,4 +1,4 @@
-dhfun2 - Reading DAQ-HDF5 files with MATLAB's HDF5 library [![Run MATLAB Tests on GitHub-Hosted Runner](https://github.com/cog-neurophys-lab/dhfun2/actions/workflows/main.yml/badge.svg)](https://github.com/cog-neurophys-lab/dhfun2/actions/workflows/main.yml)
+dhfun2 - Reading DAQ-HDF5 files with MATLAB's HDF5 library
 ==========================================================
 
 dhfun2 provides tools to read (and soon also write) data stored on disk using the in-house
@@ -18,6 +18,8 @@ contains code and/or ideas from
 
 - Michael Borisov
 - Joscha Schmiedt (schmiedt@uni-bremen.de)
+
+Status of automated tests: [![Run MATLAB Tests on GitHub-Hosted Runner](https://github.com/cog-neurophys-lab/dhfun2/actions/workflows/main.yml/badge.svg)](https://github.com/cog-neurophys-lab/dhfun2/actions/workflows/main.yml)
 
 Getting started with `dhfun2`
 -----------------------------
