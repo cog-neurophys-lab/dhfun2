@@ -5,11 +5,11 @@ arguments
     blkid double {mustBeInteger,mustBePositive} = []
 end
 
-allContIds = dh.enumcont(filename);
+
 
 % take all cont blocks if blkid is not specified
 if isempty(blkid)
-    blkid = allContIds;
+    blkid = dh.enumcont(filename);
 end
 
 % hdr (header information of the original dataset on disk)

@@ -17,11 +17,6 @@ end
 
 filename = get_filename(fid);
 
-contGroups = dh.enumcont(filename);
-if ~ismember(blkid, contGroups)
-    error('No such CONT block')
-end
-
 contInfo = dh.getcontinfo(filename, blkid);
 items = zeros(1, length(blkid));
 
