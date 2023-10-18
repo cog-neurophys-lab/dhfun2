@@ -1,9 +1,38 @@
 function [data, events] = ft_read_cont(filename, blkid, options)
+% FT_READ_CONT - Read continuous data and events from disk into Fieldtrip format
+%
+% USAGE
+%   [data, {events}] = ft_read_cont(filename, blkid, {options})
+%
+% INPUTS
+%   filename    - string, name of the data file. If empty, a file dialog is opened.
+%   blkid       - double, CONT block ID(s) to read. If empty, all CONT blocks are read.
+%   options     - struct, optional
+%       .feedback   - string, 'yes' or 'no', default='yes'
+%
+% OUTPUTS
+%   data        - struct, Fieldtrip data structure ft_datatype_raw
+%   events      - struct, Fieldtrip event structure
+%
+% See also FT_DATATYPE_RAW, FT_READ_EVENT, FT_READ_HEADER, FT_READ_DATA
+
+
 
 arguments
-    filename char
+    filename char = ''
     blkid double {mustBeInteger,mustBePositive} = []
     options.feedback string = "yes";
+end
+
+if isempty(filename)
+    [filename, pathname, ~] = uigetfile('*.dh5', 'Pick a DAQ-HDF5 (*.dh5) data file');
+    if filename == 0
+        data = [];
+        events = [];
+        return;
+    end
+
+    filename = fullfile(pathname, filename);
 end
 
 
