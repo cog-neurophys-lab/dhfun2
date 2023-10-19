@@ -24,8 +24,8 @@ function [trl, event] = trialfun_general(cfg)
 %   cfg.trialdef.startTrigger     = trigger number for start of trial
 %   cfg.trialdef.endTrigger       = trigger number for end of trial
 %   cfg.trialdef.alignTrigger     = trigger number for aligning trial to, i.e. t=0
-%   cfg.trialdef.tPreStartTrigger = time before start trigger, in seconds
-%   cfg.trialdef.tPostEndTrigger  = time after end trigger, in seconds 
+%   cfg.trialdef.tPreStartTrigger = time before start trigger, in seconds, default=0
+%   cfg.trialdef.tPostEndTrigger  = time after end trigger, in seconds, default=0
 % 
 %     tPreStartTrigger                                             tPostEndTrigger
 %     ----------------- | -----------------|--------------------|-----------------
@@ -47,6 +47,8 @@ function [trl, event] = trialfun_general(cfg)
 %       7. start time in nanoseconds
 %       8. end time in nanoseconds
 %
+% Note: The outcome is not always defined as above. It may depend on the experiment.
+%
 % See also FT_DEFINETRIAL, FT_REDEFINETRIAL, FT_TRIALFUN_GENERAL
 arguments
     cfg struct = []
@@ -63,6 +65,14 @@ if ~isfield(cfg, 'hdr')
 end
 if ~isfield(cfg, 'event')
   cfg.event = ft_read_event(cfg.dataset);
+end
+
+if ~isfield(cfg.trialdef, 'tPreStartTrigger')
+  cfg.trialdef.tPreStartTrigger = 0;
+end
+
+if ~isfield(cfg.trialdef, 'tPostEndTrigger')
+  cfg.trialdef.tPostEndTrigger = 0;
 end
 
 triggerEvents = cfg.event(strcmp('trigger', {cfg.event.type}));
