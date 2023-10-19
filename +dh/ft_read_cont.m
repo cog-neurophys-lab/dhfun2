@@ -94,10 +94,17 @@ for iCont = 1:length(blkid)
     % read start time and offset of all trials in this CONT block
     [time, offset] = dh.readcontindex(filename, blkid(iCont));
 
+    % convert to seconds
+    time = double(time)*1e-9;
+
+    % convert to double precision
+    offset = double(offset);
+
     if isTrialBasedRecording
         if iCont == 1
             data.trial = cell(1,nTrialsInCont(1));
             data.time = cell(1,nTrialsInCont(1));
+            data.sampleinfo = zeros(nTrialsInCont(1), 2);
         end
 
         for iTrial = 1:length(offset)
@@ -110,15 +117,15 @@ for iCont = 1:length(blkid)
                 data.trial{iTrial}(channelBegin:channelEnd,:) = contData(:,offset(iTrial)+1:end);
             end
 
-            data.time{iTrial} = (0:nSamples-1) / data.hdr.Fs + time(iTrial)*1e-9;
-            data.sampleinfo(iTrial, :) = double(round(time(iTrial) * 1e-9 * data.hdr.Fs) + [1 nSamples]);
+            data.time{iTrial} = (0:nSamples-1) / data.hdr.Fs + time(iTrial);
+            data.sampleinfo(iTrial, :) = round(time(iTrial) * data.hdr.Fs) + [1 nSamples];
         end
         data.trialinfo = double([data.hdr.trialmap.TrialNo, data.hdr.trialmap.StimNo, data.hdr.trialmap.Outcome]);
     else
         % continuous recording / single trial
         if iCont == 1
             data.trial = {zeros(data.hdr.nChans, data.hdr.nSamples)};
-            data.time = {(0:data.hdr.nSamples-1)*data.hdr.Fs + data.hdr.FirstTimeStamp};         
+            data.time = {(0:data.hdr.nSamples-1)*data.hdr.Fs + time(1)};         
             data.sampleinfo = [1, data.hdr.nSamples];
         end
         data.trial{1}(channelBegin:channelEnd,:) = contData;        
