@@ -51,4 +51,6 @@ See [`dh.trialfun_general`](+dh/trialfun_general.m) for an example.
 This data can then directly be processed by Fieldtrip functions such as
 [`ft_preprocessing`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_preprocessing.m),
 [`ft_timelockanalysis`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_timelockanalysis.m),
-or [`ft_freqanalysis`](https://www.fieldtriptoolbox.org/walkthrough/#frequency-analysis). See the [Fieldtrip documentation](https://www.fieldtriptoolbox.org/documentation/) for more information.
+or [`ft_freqanalysis`](https://www.fieldtriptoolbox.org/walkthrough/#frequency-analysis). 
+See the [Fieldtrip documentation](https://www.fieldtriptoolbox.org/documentation/) for more 
+information and the [`test_fieldtrip.m`](test/test_fieldtrip.m) script for an example.
