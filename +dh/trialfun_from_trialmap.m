@@ -26,7 +26,8 @@ function [trl, event] = trialfun_from_trialmap(cfg)
 %       3. offset
 %       4. trial number
 %       5. stimulus number
-%       6. outcome
+%       6. outcome (0=NotStarted, 1=Hit, 2=WrongResponse, 3=EarlyHit, 4=EarlyWrongReponse, 
+%                   5=Early, 6=Late, 7=EyeErr, 8=InexpectedStartSignal, 9=WrongStartSignal)
 %       7. start time in nanoseconds
 %       8. end time in nanoseconds
 %   event : struct, event information
