@@ -42,4 +42,5 @@ for iTrial = 1:length(trialmap.TrialNo)
     events(iEvent+iTrial).sample = round(double(trialmap.StartTime(iTrial)) * header.Fs * 1e-9);
     events(iEvent+iTrial).offset = 0;
     events(iEvent+iTrial).duration = round(double(trialmap.EndTime(iTrial) - trialmap.StartTime(iTrial)) * header.Fs * 1e-9);
+    events(iEvent+iTrial).timestamp = double(trialmap.StartTime(iTrial));
 end
