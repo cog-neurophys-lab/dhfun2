@@ -101,7 +101,7 @@ indexsize = 5;
 
 %% Test DH.ENUMCONT
 idCont = dhfun(DH.ENUMCONT, filename);
-assert(isequal(idCont, [1, 1001, 60, 61, 62, 63, 64]))
+assert(isequal(idCont, [1, 60, 61, 62, 63, 64,  1001]))
 
 %% Test DH.READCONT
 blkid = 1;

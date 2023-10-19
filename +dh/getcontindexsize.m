@@ -17,13 +17,12 @@ end
 
 filename = get_filename(fid);
 
-contGroups = dh.enumcont(filename);
-if ~ismember(blkid, contGroups)
-    error('No such CONT block')
+contInfo = dh.getcontinfo(filename, blkid);
+items = zeros(1, length(blkid));
+
+for iCont = 1:length(blkid)
+    items(iCont) = contInfo(iCont).Datasets(2).Dataspace.Size;
 end
-
-
-items = dh.getcontinfo(filename, blkid).Datasets(2).Dataspace.Size;
 
 end
 

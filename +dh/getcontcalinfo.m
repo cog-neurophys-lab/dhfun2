@@ -19,6 +19,12 @@
 function out = getcontcalinfo(fid, blkid)
 
 filename = get_filename(fid);
-out = h5readatt(filename, "/CONT" + blkid, 'Calibration');
+try 
+    out = h5readatt(filename, "/CONT" + blkid, 'Calibration');
+catch
+    warning('dhfun2:dh:NoCalibrationInFile', ...
+        'CONT block %d of file %s \ndoes not contain calibration information. Assuming 1.', blkid, filename)
+    out = 1;
+
 
 end

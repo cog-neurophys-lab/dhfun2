@@ -17,18 +17,15 @@ arguments
     fid 
     blkid double {mustBeInteger}
 end
-
 filename = get_filename(fid);
-    
-contGroups = dh.enumcont(filename);
-if ~ismember(blkid, contGroups)
-    error('No such CONT block')
-end
-
 contInfo = dh.getcontinfo(filename, blkid);
 
-nchan = contInfo.Datasets(1).Dataspace.Size(1);
-nsamp = contInfo.Datasets(1).Dataspace.Size(2);
+nchan = zeros(1, length(blkid));
+nsamp = zeros(1, length(blkid));
 
+for iCont = 1:length(blkid)
+    nchan(iCont) = contInfo(iCont).Datasets(1).Dataspace.Size(1);
+    nsamp(iCont) = contInfo(iCont).Datasets(1).Dataspace.Size(2);
+end
 
 end

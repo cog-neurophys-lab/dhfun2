@@ -1,9 +1,9 @@
-dhfun2 - Reading DAQ-HDF5 files with MATLAB's HDF5 library
-==========================================================
+dhfun2 - Reading DAQ-HDF5 (DH5) files into MATLAB
+=================================================
 
-dhfun2 provides tools to read (and soon also write) data stored on disk using the in-house
-[DAQ-HDF5 (DH5) file format](https://github.com/cog-neurophys-lab/DAQ-HDF5) of the Cognitive
-Neurophysiology Lab at University of Bremen.
+dhfun2 provides MATLAB tools to read electrophysiology data stored on disk using the
+in-house [DAQ-HDF5 (DH5) file format](https://github.com/cog-neurophys-lab/DAQ-HDF5) of the
+Cognitive Neurophysiology Lab at University of Bremen.
 
 `dhfun2` can act as a drop-in replacement for the legacy function `dhfun` written by Michael
 Borisov, which was using a 32-bit C++ library via MATLAB's now legacy [C Matrix
@@ -19,6 +19,8 @@ contains code and/or ideas from
 - Michael Borisov
 - Joscha Schmiedt (schmiedt@uni-bremen.de)
 
+Status of automated tests: [![Run MATLAB Tests on GitHub-Hosted Runner](https://github.com/cog-neurophys-lab/dhfun2/actions/workflows/main.yml/badge.svg)](https://github.com/cog-neurophys-lab/dhfun2/actions/workflows/main.yml)
+
 Getting started with `dhfun2`
 -----------------------------
 
@@ -31,3 +33,24 @@ options:
    Toolbox (mltbx) and install via double-click.
 3. Clone the Git repository and add the folder to MATLAB path.
 
+
+Reading DH5 data into Fieldtrip
+-------------------------------
+
+To load continous (CONT) data from a DH5 file into MATLAB in a format compatible with the
+toolbox [Fieldtrip](https://www.fieldtriptoolbox.org) use the function
+[`dh.ft_read_cont`](+dh/ft_read_cont.m):
+```matlab
+>>  [data, events] = dh.ft_read_cont(filename, contIDs);
+```
+
+Use the `events` in combination with a custom `trialfun` to create trials using
+[`ft_redefinetrial`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_redefinetrial.m).
+See [`dh.trialfun_general`](+dh/trialfun_general.m) for an example.
+
+This data can then directly be processed by Fieldtrip functions such as
+[`ft_preprocessing`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_preprocessing.m),
+[`ft_timelockanalysis`](https://github.com/fieldtrip/fieldtrip/blob/release/ft_timelockanalysis.m),
+or [`ft_freqanalysis`](https://www.fieldtriptoolbox.org/walkthrough/#frequency-analysis). 
+See the [Fieldtrip documentation](https://www.fieldtriptoolbox.org/documentation/) for more 
+information and the [`test_fieldtrip.m`](test/test_fieldtrip.m) script for an example.
