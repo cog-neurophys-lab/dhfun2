@@ -53,5 +53,5 @@ end
 
 time = double(index.time);
 % as in mex_dh_readwaveletindex of dhfun.cpp
-offset = index.offset;
+offset = index.offset + 1;
 scaling = double(index.scaling);
