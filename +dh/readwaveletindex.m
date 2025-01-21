@@ -52,5 +52,6 @@ switch nargin
 end
 
 time = double(index.time);
+% as in mex_dh_readwaveletindex of dhfun.cpp
 offset = index.offset;
 scaling = double(index.scaling);

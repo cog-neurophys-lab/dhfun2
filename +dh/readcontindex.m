@@ -54,6 +54,7 @@ else
 end
 
 time = data.time;
-offset = data.offset;
+% as in `mex_dh_readcontindex` of dhfun.cpp
+offset = data.offset + 1;
 
 end
