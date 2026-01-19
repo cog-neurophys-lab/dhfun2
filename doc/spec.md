@@ -1,6 +1,6 @@
 # DAQ-HDF file format (dh5)
 
-Document revision 2 from 22.04.2005
+Document revision 3 from 19.01.2026
 
 ## Abstract
 
@@ -176,6 +176,7 @@ The following kinds of data can be stored in DAQ-HDF files:
 
 -   signal data
 -   spike data
+-   wavelet data
 -   trialmap
 -   time markers and intervals
 -   processing history
@@ -232,6 +233,26 @@ files, too. Spike data is represented in DAQ-HDF files in the form of
 Multichannel data is possible within a single `SPIKE` block, however, all
 the channels have the same sampling rate, the same time windows for
 stored waveforms, and the same spike timestamps.
+
+### Wavelet data
+
+Wavelet data represents time-frequency decomposition of neural signals, 
+typically obtained by applying wavelet transforms to continuous signal data. 
+This analysis method provides simultaneous information about the temporal and 
+spectral characteristics of the signal, which is particularly useful for 
+studying oscillatory neural activity and transient spectral features.
+
+Wavelet data is stored as complex values (magnitude and phase) across three 
+dimensions: frequency bins, time samples, and channels. The frequency axis 
+specifies which frequencies were analyzed, while the time samples maintain the 
+temporal resolution of the original signal (though often downsampled). Wavelet 
+data is represented in DAQ-HDF files in the form of `WAVELET` blocks.
+
+Like `CONT` and `SPIKE` blocks, `WAVELET` blocks use the nTrode concept for 
+multi-channel electrodes. All channels within a `WAVELET` block share the same 
+sampling rate, the same frequency axis, and the same recording regions. 
+Different `WAVELET` blocks can have independent frequency axes and sampling 
+rates.
 
 ### Trialmap
 
@@ -479,6 +500,79 @@ stores these numbers for every spike. There can be up to 256 clusters
 for every `SPIKE` block, which is far more than enough, since a typical
 spike sorting process creates 2 to 4 clusters.
 
+### `WAVELET` blocks
+
+`WAVELET` blocks store time-frequency analysis data, typically obtained through
+wavelet transforms of continuous signals. Each block represents a multi-channel
+nTrode with time-frequency decomposition data. `WAVELET` blocks are stored in
+groups named `WAVELETn`, where n can have values between 0 and 65535. `CONT`,
+`SPIKE`, and `WAVELET` blocks can share the same identifier numbers.
+
+`WAVELETn` group **must** have the following **attributes**:
+
+- `SamplePeriod` (`int32` scalar) - specified in nanoseconds. It's the time 
+interval between two consecutive time samples in the wavelet analysis.
+
+- `FrequencyAxis` (`double` array\[F\]) - specifies the frequency values (in Hz) 
+corresponding to each frequency bin in the wavelet analysis. There are F 
+frequency bins, where F is the first dimension of the DATA dataset.
+
+`WAVELETn` group **must** have the following **datasets**:
+
+- `DATA` (`struct` array\[F,M,N\]):
+
+    | Offset | Name | Type     |
+    |--------|------|----------|
+    | 0      | a    | `uint16` |
+    | 2      | phi  | `int8`   |
+
+- `INDEX` (`struct` array\[R\]):
+
+    | Offset | Name    | Type     |
+    |--------|---------|----------|
+    | 0      | time    | `int64`  |
+    | 8      | offset  | `int64`  |
+    | 16     | scaling | `double` |
+
+Here, F is the number of frequency bins; M is the total number of time 
+samples stored; N is the number of channels in the nTrode; R is the number of 
+recording regions.
+
+Description of the **attributes**:
+
+- `SamplePeriod` plays the same role as in `CONT` and `SPIKE` blocks, 
+specifying the time resolution of the wavelet analysis in nanoseconds.
+
+- `FrequencyAxis` provides the frequency values for each frequency bin. This 
+allows reconstruction of the frequency domain of the wavelet transform. The 
+array has F elements, one for each frequency bin.
+
+Description of the **datasets**:
+
+- `DATA` stores the wavelet transform results as a 3-dimensional array with 
+compound structure. For each time-frequency point and channel, two values are 
+stored:
+  - `a` (amplitude/magnitude) is stored as unsigned 16-bit integers with 
+  values from 0 to 65535. These are scaled values that must be converted to 
+  floating-point representation using scaling factors from the INDEX dataset.
+  - `phi` (phase) is stored as signed 8-bit integers with values from -127 to 
+  127. To convert to radians, use the formula: `phi_rad = phi * pi / 127.0`.
+
+- `INDEX` characterizes each recording region with three values:
+  - `time` is the timestamp of the first time sample in nanoseconds.
+  - `offset` specifies the sample offset within the `DATA` dataset where the 
+  first sample of a particular region is stored (1-based indexing).
+  - `scaling` is a floating-point scaling factor used to restore the actual 
+  magnitude values. To obtain the true magnitude value for samples in a given 
+  region, multiply the raw `a` values by the corresponding `scaling` factor.
+
+The INDEX system for `WAVELET` blocks is similar to that of `CONT` blocks, 
+allowing for piecewise-continuous recording with gaps. All samples within a 
+contiguous recording region share the same scaling factor. To restore the 
+value of an arbitrary sample, one must first determine which region it belongs 
+to, fetch that region's scaling value, and multiply it by the sample's raw 
+magnitude value.
+
 ### Trialmap
 
 Trialmap is a dataset in the root group of a DAQ-HDF file:
@@ -701,4 +795,4 @@ from EV02 and TD01 datasets.
 DAQ-HDF specifications are designed and documented by Michael Borisov,
 modified by Joscha Schmiedt.
 
-Copyright © 2005-2023, Bremen Brain Research Institute
+Copyright © 2005-2026, University of Bremen
