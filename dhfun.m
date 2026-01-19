@@ -1860,8 +1860,8 @@
 %  -------------------------------------------------
 %
 %
-%  (c) 2001-2006 Michael Borisov, Bremen Brain Research Institute.
-%  (c) 2023 Joscha Schmiedt, Bremen, Brain Research Institute
+%  (c) 2001-2006 Michael Borisov, Brain Research Institute, University of Bremen.
+%  (c) 2023-2026 Joscha Schmiedt, Brain Research Institute, University of Bremen.
 
 function varargout = dhfun(varargin)
 persistent DH;
@@ -1902,43 +1902,43 @@ switch FUNCTION
 
 
     case DH.GETDAQVERSION
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
         %
         %  --- DAQ-HDF V1 continuous recordings ------------
         %
     case DH.CREATECR
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.READCR
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.WRITECR
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRSIZE
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRADCBITWIDTH
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRSAMPLEPERIOD
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRSTARTTIME
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRMAXVOLTAGERANGE
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRMINVOLTAGERANGE
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.GETCRCALINFO
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
     case DH.SETCRCALINFO
-        error('Not implemented yet');
+        error('DAQ-HDF V1 format is not supported by dhfun2');
 
         %
         %  --- DAQ-HDF V1 event triggers -------------------
@@ -2171,9 +2171,4 @@ switch FUNCTION
 
     case DH.SETINTERVAL
         error('Not implemented yet');
-
-
-
-
-
 end
