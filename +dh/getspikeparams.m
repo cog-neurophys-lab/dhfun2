@@ -20,6 +20,6 @@ filename = get_filename(fid);
 
 spikeParams = h5readatt(filename, "/SPIKE" + blkid, 'SpikeParams');
 
-total = spikeParams.spikeSamples;
-pretrig = spikeParams.preTrigSamples;
-lockout = spikeParams.lockOutSamples;
+total = double(spikeParams.spikeSamples);
+pretrig = double(spikeParams.preTrigSamples);
+lockout = double(spikeParams.lockOutSamples);
