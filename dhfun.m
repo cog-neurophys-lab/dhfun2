@@ -2125,7 +2125,7 @@ switch FUNCTION
         %  --- DAQ-HDF V2 EV02 triggers --------------------
         %
     case DH.CREATEEV2
-        error('Not implemented yet');
+        dh.createev2(varargin{:});
 
     case DH.READEV2
         varargout = cell(1,2);
@@ -2133,7 +2133,7 @@ switch FUNCTION
 
 
     case DH.WRITEEV2
-        error('Not implemented yet');
+        dh.writeev2(varargin{:});
 
     case DH.GETEV2SIZE
         varargout = {dh.getev2size(varargin{:})};
@@ -2146,7 +2146,7 @@ switch FUNCTION
         [varargout{:}] = dh.gettrialmap(varargin{:});
 
     case DH.SETTRIALMAP
-        error('Not implemented yet');
+        dh.settrialmap(varargin{:});
 
         %
         %  ---------- MARKER interface ---------------------
