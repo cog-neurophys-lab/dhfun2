@@ -2022,7 +2022,7 @@ switch FUNCTION
         %  --- DAQ-HDF V2 SPIKE nTrodes --------------------
         %
     case DH.CREATESPIKE
-        error('Not implemented yet');
+        dh.createspike(varargin{:});
 
     case DH.ENUMSPIKE
         varargout = {dh.enumspike(varargin{:})};
@@ -2031,13 +2031,13 @@ switch FUNCTION
         varargout = {dh.readspike(varargin{:})};
 
     case DH.WRITESPIKE
-        error('Not implemented yet');
+        dh.writespike(varargin{:});
 
     case DH.READSPIKEINDEX
         varargout = {dh.readspikeindex(varargin{:})};
 
     case DH.WRITESPIKEINDEX
-        error('Not implemented yet');
+        dh.writespikeindex(varargin{:});
 
     case DH.ISCLUSTERINFO_PRESENT
         varargout = {dh.isclusterinfo_present(varargin{:})};
@@ -2046,7 +2046,7 @@ switch FUNCTION
         varargout = {dh.readspikecluster(varargin{:})};
 
     case DH.WRITESPIKECLUSTER
-        error('Not implemented yet');
+        dh.writespikecluster(varargin{:});
 
     case DH.GETSPIKESIZE
         varargout = {dh.getspikesize(varargin{:})};

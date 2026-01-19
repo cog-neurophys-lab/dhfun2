@@ -26,12 +26,23 @@ filename = get_filename(fid);
 
 switch nargin
     case 2
+        % Read all data - will be [channels x samples] from HDF5
         output = h5read(filename, "/SPIKE" + blkid + "/DATA");
-    case 4
+        % Transpose to get [samples x channels] for MATLAB
+        output = output';
+    case 6
+        % Read subset of data
+        % HDF5 stores as [channels x samples], so start/count are [chn, samp]
+        num_channels = chnend - chnbeg + 1;
+        num_samples = samend - sambeg + 1;
+
         output = h5read(filename, "/SPIKE" + blkid + "/DATA", ...
-            [sambeg, chnbeg], ...
-            [samend-sambeg+1, chnend-chnbeg+1]);
+            [chnbeg, sambeg], ...
+            [num_channels, num_samples]);
+
+        % Transpose to get [samples x channels] for MATLAB
+        output = output';
     otherwise
-        error('dhfun2:readspikeindex:invalidNargin',  ...
-        'Invalid number of arguments (%g). Should be 2 or 4.', nargin)
+        error('dhfun2:readspike:invalidNargin',  ...
+            'Invalid number of arguments (%g). Should be 2 or 6.', nargin)
 end
