@@ -144,6 +144,8 @@ fprintf('  ✓ Operations returned in correct order\n');
 
 %% Test 9: Test getoperationinfos with file containing special characters in attributes
 fprintf('\nTest 9: Testing attribute name handling...\n');
+[opnames_existing, opinfos_existing] = dhfun(DH.GETOPERATIONINFOS, '../test/test_data.dh5');
+
 % Verify that attribute names with spaces are converted to underscores
 assert(isfield(opinfos_existing{1}, 'Operator_name'), 'Space should be converted to underscore');
 assert(isfield(opinfos_existing{1}, 'Subject_name'), 'Space should be converted to underscore');

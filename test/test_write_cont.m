@@ -1,5 +1,4 @@
 % Test script for CONT block writing functionality
-% This tests createcont, writecont, setcontsampleperiod, setcontcalinfo, and writecontindex
 
 addpath('..')
 
@@ -13,19 +12,13 @@ if isfile(test_filename)
     delete(test_filename);
 end
 
+dh.createfile(test_filename);
+
 % Use onCleanup to ensure temp file is deleted even if tests fail
 cleanup = onCleanup(@() cleanupTestFile(test_filename));
 
-%% Test 1: Create new file with FILEVERSION attribute
-fprintf('Test 1: Creating new DH5 file...\n');
 
-dh.createfile(test_filename);
-
-fprintf('  ✓ File created successfully\n');
-
-%% Test 2: DH.CREATECONT
-fprintf('\nTest 2: Testing DH.CREATECONT...\n');
-
+% DH.CREATECONT
 blkid = 100;
 nSamples = 2048;
 nChannels = 4;
