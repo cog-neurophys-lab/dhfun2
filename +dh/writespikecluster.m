@@ -66,30 +66,35 @@ catch
     % Create CLUSTER_INFO dataset
     plist = 'H5P_DEFAULT';
     file_id = H5F.open(filename, 'H5F_ACC_RDWR', plist);
+
     try
         group_id = H5G.open(file_id, "/SPIKE" + blkid);
 
-        % Create dataset
-        cluster_space = H5S.create_simple(1, num_spikes, []);
-        cluster_set = H5D.create(group_id, 'CLUSTER_INFO', 'H5T_NATIVE_UCHAR', cluster_space, plist, plist, plist);
+        try
+            % Create dataset
+            cluster_space = H5S.create_simple(1, num_spikes, []);
+            cluster_set = H5D.create(group_id, 'CLUSTER_INFO', 'H5T_NATIVE_UCHAR', cluster_space, plist, plist, plist);
 
-        % Initialize with zeros
-        if num_spikes > 0
-            H5D.write(cluster_set, 'H5T_NATIVE_UCHAR', 'H5S_ALL', 'H5S_ALL', plist, zeros(num_spikes, 1, 'uint8'));
+            % Initialize with zeros
+            if num_spikes > 0
+                H5D.write(cluster_set, 'H5T_NATIVE_UCHAR', 'H5S_ALL', 'H5S_ALL', plist, zeros(num_spikes, 1, 'uint8'));
+            end
+
+            H5D.close(cluster_set);
+            H5S.close(cluster_space);
+        catch ME
+            H5G.close(group_id);
+            H5F.close(file_id);
+            rethrow(ME);
         end
 
-        H5D.close(cluster_set);
-        H5S.close(cluster_space);
         H5G.close(group_id);
         H5F.close(file_id);
 
         % Now write the actual data
         h5write(filename, dataset_path, clus, rbeg, expected_length);
     catch ME
-        try
-            H5F.close(file_id);
-        catch
-        end
+        H5F.close(file_id);
         rethrow(ME);
     end
 end
