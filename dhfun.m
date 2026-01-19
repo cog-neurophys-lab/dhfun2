@@ -1874,306 +1874,306 @@ varargin = varargin(2:end);
 
 
 switch FUNCTION
-    
+
     %  ----- General information, debugging ------------
     case DH.GETVERSION
         varargout = {dh.getversion(varargin{:})};
-        
-        
+
+
     case DH.LISTOPENFIDS
         varargout = {[]};
-        
+
         %
         %  --- General file service ------------------------
         %
     case DH.OPEN
         varargout = {dh.open(varargin{:})};
-        
+
     case DH.CLOSE
         dh.close(varargin{:});
-        
+
     case DH.GETFIDINFO
         error('Not implemented yet');
-        
+
     case DH.GETOPERATIONINFOS
         varargout = cell(1,2);
         [varargout{:}] = dh.getoperationinfos(varargin{:});
-        
-        
-        
+
+
+
     case DH.GETDAQVERSION
         error('Not implemented yet');
-        
+
         %
         %  --- DAQ-HDF V1 continuous recordings ------------
         %
     case DH.CREATECR
         error('Not implemented yet');
-        
+
     case DH.READCR
         error('Not implemented yet');
-        
+
     case DH.WRITECR
         error('Not implemented yet');
-        
+
     case DH.GETCRSIZE
         error('Not implemented yet');
-        
+
     case DH.GETCRADCBITWIDTH
         error('Not implemented yet');
-        
+
     case DH.GETCRSAMPLEPERIOD
         error('Not implemented yet');
-        
+
     case DH.GETCRSTARTTIME
         error('Not implemented yet');
-        
+
     case DH.GETCRMAXVOLTAGERANGE
         error('Not implemented yet');
-        
+
     case DH.GETCRMINVOLTAGERANGE
         error('Not implemented yet');
-        
+
     case DH.GETCRCALINFO
         error('Not implemented yet');
-        
+
     case DH.SETCRCALINFO
         error('Not implemented yet');
-        
+
         %
         %  --- DAQ-HDF V1 event triggers -------------------
         %
     case DH.CREATEEV
         error('Not implemented yet');
-        
+
     case DH.READEV
         error('Not implemented yet');
-        
+
     case DH.WRITEEV
         error('Not implemented yet');
-        
+
     case DH.GETEVSIZE
         error('Not implemented yet');
-        
+
         %
         %  --- DAQ-HDF all versions TD01 records -----------
         %
     case DH.CREATETD
         error('Not implemented yet');
-        
+
     case DH.READTD
         error('Not implemented yet');
-        
+
     case DH.WRITETD
         error('Not implemented yet');
-        
+
     case DH.GETTDSIZE
         error('Not implemented yet');
-        
+
         %
         %  --- DAQ-HDF V2 CONT nTrodes ---------------------
         %
     case DH.CREATECONT
         dh.createcont(varargin{:});
-        
+
     case DH.ENUMCONT
         varargout = {dh.enumcont(varargin{:})};
-        
+
     case DH.READCONT
         varargout = {dh.readcont(varargin{:})};
-        
+
     case DH.WRITECONT
         dh.writecont(varargin{:});
-        
+
     case DH.READCONTINDEX
         [time, offset] = dh.readcontindex(varargin{:});
         varargout = {time, offset};
-        
+
     case DH.WRITECONTINDEX
         dh.writecontindex(varargin{:});
-        
+
     case DH.GETCONTSIZE
         [nsamp, nchan] = dh.getcontsize(varargin{:});
         varargout = {nsamp, nchan};
-        
+
     case DH.GETCONTINDEXSIZE
         varargout = {dh.getcontindexsize(varargin{:})};
-        
+
     case DH.GETCONTSAMPLEPERIOD
         varargout = {dh.getcontsampleperiod(varargin{:})};
-        
+
     case DH.SETCONTSAMPLEPERIOD
         dh.setcontsampleperiod(varargin{:});
-        
+
     case DH.GETCONTCALINFO
         varargout = {dh.getcontcalinfo(varargin{:})};
-        
+
     case DH.SETCONTCALINFO
         dh.setcontcalinfo(varargin{:});
-        
+
     case DH.GETCONTCHANDESC
         varargout = cell(1,6);
         [varargout{:}] = dh.getcontchandesc(varargin{:});
-        
+
     case DH.SETCONTCHANDESC
         error('Not implemented yet');
-        
+
         %
         %  --- DAQ-HDF V2 SPIKE nTrodes --------------------
         %
     case DH.CREATESPIKE
         error('Not implemented yet');
-        
+
     case DH.ENUMSPIKE
         varargout = {dh.enumspike(varargin{:})};
-        
+
     case DH.READSPIKE
         varargout = {dh.readspike(varargin{:})};
-        
+
     case DH.WRITESPIKE
         error('Not implemented yet');
-        
+
     case DH.READSPIKEINDEX
         varargout = {dh.readspikeindex(varargin{:})};
-        
+
     case DH.WRITESPIKEINDEX
         error('Not implemented yet');
-        
+
     case DH.ISCLUSTERINFO_PRESENT
         varargout = {dh.isclusterinfo_present(varargin{:})};
-        
+
     case DH.READSPIKECLUSTER
         varargout = {dh.readspikecluster(varargin{:})};
-        
+
     case DH.WRITESPIKECLUSTER
         error('Not implemented yet');
-        
+
     case DH.GETSPIKESIZE
         varargout = {dh.getspikesize(varargin{:})};
-        
+
     case DH.GETNUMBERSPIKES
         varargout = {dh.getnumberspikes(varargin{:})};
-        
+
     case DH.GETSPIKESAMPLEPERIOD
         varargout = {dh.getspikesampleperiod(varargin{:})};
-        
+
     case DH.GETSPIKEPARAMS
         varargout = cell(1,3);
         [varargout{:}] = dh.getspikeparams(varargin{:});
-        
+
     case DH.GETSPIKECHANDESC
         error('Not implemented yet');
-        
+
     case DH.SETSPIKECHANDESC
         error('Not implemented yet');
-        
+
         %
         %  --- WAVELET interface ---------------------------
         %
     case DH.CREATEWAVELET
-        error('Not implemented yet');
-        
+        dh.createwavelet(varargin{:});
+
     case DH.ENUMWAVELET
         varargout = {dh.enumwavelet(varargin{:})};
-        
+
     case DH.READWAVELET
         varargout = cell(1,2);
         [varargout{:}] = dh.readwavelet(varargin{:});
-        
+
     case DH.WRITEWAVELET
-        error('Not implemented yet');
-        
+        dh.writewavelet(varargin{:});
+
     case DH.READWAVELETINDEX
         varargout = cell(1,3);
         [varargout{:}] = dh.readwaveletindex(varargin{:});
-        
+
     case DH.WRITEWAVELETINDEX
-        error('Not implemented yet');
-        
+        dh.writewaveletindex(varargin{:});
+
     case DH.GETWAVELETSIZE
         varargout = cell(1,3);
         [varargout{:}] = dh.getwaveletsize(varargin{:});
-        
+
     case DH.GETWAVELETINDEXSIZE
         varargout = {dh.getwaveletindexsize(varargin{:})};
-        
+
     case DH.GETWAVELETSAMPLEPERIOD
         varargout = {dh.getwaveletsampleperiod(varargin{:})};
-        
+
     case DH.SETWAVELETSAMPLEPERIOD
-        error('Not implemented yet');
-        
+        dh.setwaveletsampleperiod(varargin{:});
+
     case DH.GETWAVELETCHANDESC
         error('Not implemented yet');
-        
+
     case DH.SETWAVELETCHANDESC
         error('Not implemented yet');
-        
+
     case DH.GETWAVELETFAXIS
         varargout = {dh.getwaveletfaxis(varargin{:})};
-        
+
     case DH.SETWAVELETFAXIS
-        error('Not implemented yet');
-        
+        dh.setwaveletfaxis(varargin{:});
+
     case DH.GETWAVELETMORLETPARAMS
-        error('Not implemented yet');
-        
+        varargout = {dh.getwaveletmorletparams(varargin{:})};
+
     case DH.SETWAVELETMORLETPARAMS
-        error('Not implemented yet');
-        
+        dh.setwaveletmorletparams(varargin{:});
+
         %
         %  --- DAQ-HDF V2 EV02 triggers --------------------
         %
     case DH.CREATEEV2
         error('Not implemented yet');
-        
+
     case DH.READEV2
         varargout = cell(1,2);
         [varargout{:}] = dh.readev2(varargin{:});
-        
-        
+
+
     case DH.WRITEEV2
         error('Not implemented yet');
-        
+
     case DH.GETEV2SIZE
         varargout = {dh.getev2size(varargin{:})};
-        
+
         %
         %  ---------- TRIALMAP interface -------------------
         %
     case DH.GETTRIALMAP
         varargout = cell(1,5);
         [varargout{:}] = dh.gettrialmap(varargin{:});
-        
+
     case DH.SETTRIALMAP
         error('Not implemented yet');
-        
+
         %
         %  ---------- MARKER interface ---------------------
         %
     case DH.ENUMMARKERS
         error('Not implemented yet');
-        
+
     case DH.GETMARKER
         error('Not implemented yet');
-        
+
     case DH.SETMARKER
         error('Not implemented yet');
-        
+
         %
         %  ---------- INTERVAL interface -------------------
         %
     case DH.ENUMINTERVALS
         error('Not implemented yet');
-        
+
     case DH.GETINTERVAL
         error('Not implemented yet');
-        
+
     case DH.SETINTERVAL
         error('Not implemented yet');
-        
-        
-        
-        
-        
+
+
+
+
+
 end
