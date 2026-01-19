@@ -26,7 +26,7 @@ p.KeepUnmatched = true;  % Allow additional parameters
 addRequired(p, 'filename', @ischar);
 addRequired(p, 'operation_name', @ischar);
 addParameter(p, 'Tool', 'MATLAB', @ischar);
-addParameter(p, 'Operator', getenv('USERNAME'), @ischar);
+addParameter(p, 'Operator', get_default_operator(), @ischar);
 parse(p, filename, operation_name, varargin{:});
 
 tool_name = p.Results.Tool;
@@ -129,5 +129,16 @@ catch ME
 end
 
 H5F.close(file_id);
+
+    function operator = get_default_operator()
+        operator = getenv('USER');  % Linux/macOS
+        if isempty(operator)
+            operator = getenv('USERNAME');  % Windows
+        end
+        if isempty(operator)
+            operator = 'unknown';
+        end
+    end
+
 
 end
