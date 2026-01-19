@@ -24,7 +24,7 @@ function writecont(fid, blkid, sambeg, samend, chnbeg, chnend, data)
 
 arguments
     fid
-    blkid double {mustBePositive, mustBeInteger}
+    blkid double {mustBeNonnegative, mustBeInteger}
     sambeg double {mustBePositive, mustBeInteger}
     samend double {mustBePositive, mustBeInteger}
     chnbeg double {mustBePositive, mustBeInteger}

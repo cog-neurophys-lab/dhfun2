@@ -18,11 +18,11 @@ function data = readcont(fid, blkid, sambeg, samend, chnbeg, chnend)
 
 arguments
     fid
-    blkid double {mustBePositive, mustBeInteger}
-    sambeg double {mustBePositive, mustBeInteger} = []
-    samend double {mustBePositive, mustBeInteger} = []
-    chnbeg double {mustBePositive, mustBeInteger} = []
-    chnend double {mustBePositive, mustBeInteger} = []
+    blkid double {mustBePositive, mustBeNonnegative}
+    sambeg double {mustBePositive, mustBeNonnegative} = []
+    samend double {mustBePositive, mustBeNonnegative} = []
+    chnbeg double {mustBePositive, mustBeNonnegative} = []
+    chnend double {mustBePositive, mustBeNonnegative} = []
 end
 
 filename = get_filename(fid);
