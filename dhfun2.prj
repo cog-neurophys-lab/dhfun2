@@ -1,10 +1,10 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="619438853" file="C:\Code\MATLAB\dhfun2\dhfun2.prj" location="C:\Code\MATLAB\dhfun2" name="dhfun2" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="619438853" file="D:\cog-neurophys-lab\dhfun2\dhfun2.prj" location="D:\cog-neurophys-lab\dhfun2" name="dhfun2" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>dhfun2</param.appname>
     <param.authnamewatermark>Joscha Schmiedt</param.authnamewatermark>
     <param.email>schmiedt@uni-bremen.de</param.email>
     <param.company>Universität Bremen</param.company>
-    <param.summary>Tools for reading DH5 data from the Cognitive Neurophysiology Lab at University of Bremen</param.summary>
+    <param.summary>Tools for reading DH5 data from the Brain Research Institute at University of Bremen</param.summary>
     <param.description>dhfun2 provides tools to read data stored on disk using the in-house DAQ-HDF5 (DH5) file format of the Cognitive Neurophysiology Lab at University of Bremen. 
 
 dhfun2 can act as a drop-in replacement for the legacy function dhfun written by Michael Borisov, which was using a 32-bit C++ library via MATLAB's now legacy C Matrix API. dhfun2 instead relies on MATLAB's built-in HDF5 functionality, and is therefore compatible with all platforms supported by MATLAB.
@@ -13,7 +13,7 @@ dhfun2 can also read data stored in DH5 files in a format compatible with the to
 
 dhfun2 is freely available under the MIT license. The source code is available on GitHub via https://github.com/cog-neurophys-lab/dhfun2</param.description>
     <param.screenshot>${PROJECT_ROOT}\doc\logo.png</param.screenshot>
-    <param.version>2023.10.19</param.version>
+    <param.version>2026.01.19</param.version>
     <param.output>${PROJECT_ROOT}\dhfun2.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -84,7 +84,6 @@ test/</param.exclude.filters>
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\+dh</file>
-      <file>${PROJECT_ROOT}\+tdr</file>
       <file>${PROJECT_ROOT}\.github</file>
       <file>${PROJECT_ROOT}\CHANGELOG.md</file>
       <file>${PROJECT_ROOT}\daq_hdf5.m</file>
@@ -97,11 +96,11 @@ test/</param.exclude.filters>
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="dhfun2.mltbx" optional="false">C:\Code\MATLAB\dhfun2\dhfun2.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="dhfun2.mltbx" optional="false">D:\cog-neurophys-lab\dhfun2\dhfun2.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2022a</root>
+      <root>C:\Program Files\MATLAB\R2024b</root>
       <toolboxes />
     </matlab>
     <platform>
