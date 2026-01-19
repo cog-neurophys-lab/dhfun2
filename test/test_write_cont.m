@@ -19,24 +19,7 @@ cleanup = onCleanup(@() cleanupTestFile(test_filename));
 %% Test 1: Create new file with FILEVERSION attribute
 fprintf('Test 1: Creating new DH5 file...\n');
 
-% Create a new HDF5 file
-plist = 'H5P_DEFAULT';
-fcpl = H5P.create('H5P_FILE_CREATE');
-fapl = H5P.create('H5P_FILE_ACCESS');
-file_id = H5F.create(test_filename, 'H5F_ACC_TRUNC', fcpl, fapl);
-
-% Write FILEVERSION attribute to root group
-root_id = H5G.open(file_id, '/');
-attr_space = H5S.create_simple(1, 1, []);
-attr = H5A.create(root_id, 'FILEVERSION', 'H5T_NATIVE_INT32', attr_space, plist, plist);
-H5A.write(attr, 'H5T_NATIVE_INT32', int32(2));
-H5A.close(attr);
-H5S.close(attr_space);
-H5G.close(root_id);
-
-H5P.close(fcpl);
-H5P.close(fapl);
-H5F.close(file_id);
+dh.createfile(test_filename);
 
 fprintf('  ✓ File created successfully\n');
 

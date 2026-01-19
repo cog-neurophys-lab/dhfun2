@@ -18,13 +18,13 @@ cleanup = onCleanup(@() cleanupTestFile(test_filename));
 
 %% Test 1: Create minimal file
 fprintf('Test 1: Creating minimal DH5 file...\n');
-create_minimal_dh5(test_filename);
+dh.createfile(test_filename);
 
 % Verify initial operation
 [opnames, opinfos] = dhfun(DH.GETOPERATIONINFOS, test_filename);
 assert(length(opnames) == 1, 'Should have 1 operation');
 assert(strcmp(opnames{1}, 'FileCreation'), 'First operation should be FileCreation');
-assert(strcmp(opinfos{1}.Tool, 'create_minimal_dh5'), 'Tool mismatch');
+assert(strcmp(opinfos{1}.Tool, 'dh.createfile'), 'Tool mismatch');
 fprintf('  ✓ Initial operation created successfully\n');
 
 %% Test 2: Add operation with default parameters
